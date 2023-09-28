@@ -69,7 +69,7 @@ public class MailHandler {
 
     public synchronized ArrayList<Email> loadInBox(String user) {
         ArrayList<Email> allEmails = new ArrayList<>();
-        File dir = new File("src/main/java/com/prog3/email/prog3_webmail/Client/UserFiles/" + user + "/in/");
+        File dir = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UserFiles/" + user + "/in/");
 
         if (dir.exists() && dir.isDirectory()) {
             //try {
@@ -90,7 +90,7 @@ public class MailHandler {
 
         ArrayList<Email> out = new ArrayList<>();
 
-        File dir = new File("src/main/java/com/prog3/email/prog3_webmail/Client/UserFiles/" + user + "/in/");
+        File dir = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UserFiles/" + user + "/in/");
 
         if (dir.exists() && dir.isDirectory()) {
 
