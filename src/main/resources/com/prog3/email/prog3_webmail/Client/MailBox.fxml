@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.36789297658862874" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prog3.email.prog3_webmail.Client.MailBoxController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="166.0">
+         <children>
+            <TextField fx:id="searchField" layoutX="13.0" layoutY="14.0" prefHeight="25.0" prefWidth="187.0" promptText="Search Mail" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="13.0" />
+            <CheckBox fx:id="cbOrderByDate" layoutX="6.0" layoutY="376.0" mnemonicParsing="false" text="Order by date" />
+            <TabPane layoutX="-2.0" layoutY="52.0" prefHeight="314.0" prefWidth="217.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+              <tabs>
+                <Tab fx:id="receivedTab" text="Received">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="lblNothingNewHere2" layoutX="61.0" layoutY="134.0" text="Nothing new here" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" />
+                              <TableView fx:id="inTable" layoutX="-2.0" layoutY="-3.0" prefHeight="287.0" prefWidth="219.0">
+                                <columns>
+                                  <TableColumn fx:id="inSenderColumn" prefWidth="75.0" text="Sender" />
+                                  <TableColumn fx:id="inSubjectColumn" prefWidth="75.0" text="Subject" />
+                                    <TableColumn fx:id="inDateColumn" prefWidth="75.0" text="Date" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab fx:id="sentTab" text="Sent">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="lblNothingNewHere" layoutX="58.0" layoutY="133.0" text="Nothing new here" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" />
+                              <TableView fx:id="outTable" prefHeight="287.0" prefWidth="219.0">
+                                 <columns>
+                                    <TableColumn fx:id="outReceiverColumn" prefWidth="75.0" text="Receiver" />
+                                    <TableColumn fx:id="outSubjectColumn" prefWidth="75.0" text="Subject" />
+                                    <TableColumn fx:id="outDateColumn" prefWidth="75.0" text="Date" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <Button fx:id="btnNewMail" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="+ New Mail" AnchorPane.leftAnchor="14.0" />
+            <Label fx:id="lblSubject" layoutX="110.0" layoutY="13.0" text="Subject:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblSubjectVuota" layoutX="187.0" layoutY="18.0" prefHeight="17.0" prefWidth="178.0" />
+            <Label fx:id="lblFrom" layoutX="14.0" layoutY="64.0" text="From" />
+            <Label fx:id="lblTo" layoutX="14.0" layoutY="94.0" text="To" />
+            <Label fx:id="lblDate" layoutX="14.0" layoutY="125.0" text="Date" AnchorPane.leftAnchor="14.0" />
+            <Label fx:id="lblFromVuota" layoutX="71.0" layoutY="64.0" prefHeight="17.0" prefWidth="169.0" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="135.0" />
+            <Label fx:id="lblToVuota" layoutX="71.0" layoutY="94.0" prefHeight="17.0" prefWidth="161.0" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="135.0" />
+            <Label fx:id="lblDateVuota" layoutX="71.0" layoutY="125.0" prefHeight="17.0" prefWidth="161.0" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="135.0" />
+            <TextArea fx:id="txtArea" layoutX="14.0" layoutY="162.0" prefHeight="206.0" prefWidth="338.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+            <Button fx:id="btnDelete" layoutX="309.0" layoutY="368.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="52.0" text="Delete" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="309.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="368.0" />
+            <ImageView fx:id="imgInbox" fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Assets/Inbox.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnReply" layoutX="13.0" layoutY="368.0" mnemonicParsing="false" text="Reply" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="310.0" />
+         </children></AnchorPane>
+  </items>
+</SplitPane>
