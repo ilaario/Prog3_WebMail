@@ -1,6 +1,6 @@
 package com.prog3.email.prog3_webmail.Client;
 
-import com.prog3.email.prog3_webmail.Server.RootLayoutController;
+import com.prog3.email.prog3_webmail.Client.RootLayoutController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -68,7 +68,7 @@ public class LoginController {
             return;
         }
 
-        if(!checkValidPassword(pwString)){
+        if(checkValidPassword(pwString)){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error");

@@ -164,4 +164,13 @@ public class Mail implements Serializable {
     public String getSender() {
         return from.get();
     }
+
+    public String getReceiversString() {
+        StringBuilder sb = new StringBuilder();
+        for (String s : to) {
+            sb.append(s);
+            sb.append(", ");
+        }
+        return sb.toString();
+    }
 }

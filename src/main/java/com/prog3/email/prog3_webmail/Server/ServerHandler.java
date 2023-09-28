@@ -7,7 +7,9 @@ import javafx.util.Pair;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ServerHandler implements Runnable {
@@ -65,17 +67,17 @@ public class ServerHandler implements Runnable {
                         case "login":
                             handleLogin((String)comm.getData());
                             break;
-                        case "register":
-                            handleRegister((String)comm.getData());
-                            break;
                         case "send":
                             handleSend(userList, (Email)comm.getData());
                             break;
                         case "delete":
                             handleDelete((String) ((Pair) comm.getData()).getKey(), (Email) ((Pair) comm.getData()).getValue());
                             break;
-                        case "logout":
-                            handleLogout((String)comm.getData());
+                        case "inbox":
+                            handleInboxAction((String)((Pair) comm.getData()).getKey(), (List<Email>) ((Pair) comm.getData()).getValue());
+                            break;
+                        case "outbox":
+                            handleOutboxAction((String)((Pair) comm.getData()).getKey(), (List<Email>) ((Pair) comm.getData()).getValue());
                             break;
                         default:
                             log.setLog("Command not recognized by server");
@@ -93,11 +95,6 @@ public class ServerHandler implements Runnable {
         } catch (IOException e){
             e.printStackTrace();
         }
-    }
-
-    private void handleLogout(String username) {
-        userUtils.handleUserLogout(username);
-
     }
 
     private void handleDelete(String user, Email data) {
@@ -145,23 +142,9 @@ public class ServerHandler implements Runnable {
         }
     }
 
-    private void handleRegister(String username) throws IOException, ClassNotFoundException {
-        UserList userList = getUserList();
-        userUtils.handleUserRegister(username);
-        Set<String> set = userUtils.getUsernames(username);
-
-        log.setLog("User registered: " + username);
-        CS_Comm comm = new CS_Comm("register_ok", new LoginResponse());
-
-        out.writeObject(comm);
-    }
-
     private void handleLogin(String username) throws IOException, ClassNotFoundException {
         UserList userList = getUserList();
-        if(userUtils.handleUserLogin(username) == null){
-            // implementare errore di login
-
-        }
+        userUtils.handleUserLogin(username);
         Set<String> set = userUtils.getUsernames(username);
 
         log.setLog("User logged in: " + username);
@@ -170,5 +153,28 @@ public class ServerHandler implements Runnable {
         out.writeObject(comm);
     }
 
+    private void handleInboxAction(String username, List<Email> userInbox) throws IOException, ClassNotFoundException {
+        ArrayList<Email> loadedInbox = mailHandler.loadInBox(username);
+        ArrayList<Email> newEmails = new ArrayList<>();
+        for (Email email : loadedInbox) {
+            if(!userInbox.contains(email)) {
+                newEmails.add(email);
+            }
+        }
+        CS_Comm response = new CS_Comm("inbox", newEmails);
+        out.writeObject(response);
+    }
+
+    private void handleOutboxAction(String username, List<Email> userOutbox) throws IOException, ClassNotFoundException {
+        ArrayList<Email> loadedOutbox = mailHandler.loadOutBox(username);
+        ArrayList<Email> newEmails = new ArrayList<>();
+        for (Email email : loadedOutbox) {
+            if(!userOutbox.contains(email)) {
+                newEmails.add(email);
+            }
+        }
+        CS_Comm response = new CS_Comm("outbox",newEmails);
+        out.writeObject(response);
+    }
 
 }

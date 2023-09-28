@@ -60,7 +60,7 @@
          </children></AnchorPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
          <children>
-            <Button fx:id="btnNewMail" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="+ New Mail" AnchorPane.leftAnchor="14.0" />
+            <Button fx:id="btnNewMail" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="+ New Mail" AnchorPane.leftAnchor="14.0" onAction="#handleNew"/>
             <Label fx:id="lblSubject" layoutX="110.0" layoutY="13.0" text="Subject:">
                <font>
                   <Font size="18.0" />
@@ -74,13 +74,13 @@
             <Label fx:id="lblToVuota" layoutX="71.0" layoutY="94.0" prefHeight="17.0" prefWidth="161.0" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="135.0" />
             <Label fx:id="lblDateVuota" layoutX="71.0" layoutY="125.0" prefHeight="17.0" prefWidth="161.0" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="135.0" />
             <TextArea fx:id="txtArea" layoutX="14.0" layoutY="162.0" prefHeight="206.0" prefWidth="338.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
-            <Button fx:id="btnDelete" layoutX="309.0" layoutY="368.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="52.0" text="Delete" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="309.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="368.0" />
+            <Button fx:id="btnDelete" layoutX="309.0" layoutY="368.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="52.0" text="Delete" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="309.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="368.0" onAction="#delete"/>
             <ImageView fx:id="imgInbox" fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="124.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Assets/Inbox.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnReply" layoutX="13.0" layoutY="368.0" mnemonicParsing="false" text="Reply" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="310.0" />
+            <Button fx:id="btnReply" layoutX="13.0" layoutY="368.0" mnemonicParsing="false" text="Reply" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="310.0" onAction="#reply"/>
          </children></AnchorPane>
   </items>
 </SplitPane>

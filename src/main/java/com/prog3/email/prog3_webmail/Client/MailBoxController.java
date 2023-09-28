@@ -289,4 +289,14 @@ public class MailBoxController {
         }
     }
 
+    @FXML
+    private void handleNew() {
+        loginController.showSendMailDialog(new Mail("",
+                username,
+                "",
+                null,
+                LocalDateTime.now(),
+                ""), "Send new email");
+    }
+
 }

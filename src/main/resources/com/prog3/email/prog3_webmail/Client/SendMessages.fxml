@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prog3.email.prog3_webmail.Client.NewMessageController">
    <children>
       <Label fx:id="to" layoutX="20.0" layoutY="53.0" text="To:" AnchorPane.leftAnchor="20.0" />
       <Label fx:id="subject" layoutX="23.0" layoutY="93.0" prefHeight="18.0" prefWidth="46.0" text="Subject:" AnchorPane.leftAnchor="20.0" />
@@ -12,6 +12,6 @@
       <TextField fx:id="toField" layoutX="43.0" layoutY="48.0" prefHeight="26.0" prefWidth="538.0" AnchorPane.rightAnchor="15.0" />
       <Label fx:id="from" layoutX="21.0" layoutY="14.0" text="From:" AnchorPane.leftAnchor="20.0" />
       <Label fx:id="mailFrom" layoutX="61.0" layoutY="14.0" prefHeight="18.0" prefWidth="187.0" />
-      <Button fx:id="btnSend" layoutX="538.0" layoutY="356.0" mnemonicParsing="false" text="Send " />
+      <Button fx:id="btnSend" layoutX="538.0" layoutY="356.0" mnemonicParsing="false" text="Send " onAction="#handleOk"/>
    </children>
 </AnchorPane>

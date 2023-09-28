@@ -16,7 +16,7 @@ public class ClientMain extends Application{
     public void start(Stage stage){
         try {
             stage.setTitle("Client mail");
-            FXMLLoader loaderLogin = new FXMLLoader(getClass().getResource("LoginPage.fxml"));
+            FXMLLoader loaderLogin = new FXMLLoader(getClass().getResource("FrontPage.fxml"));
             Scene sceneLogin = new Scene(loaderLogin.load());
 
             stage.setTitle("Login");

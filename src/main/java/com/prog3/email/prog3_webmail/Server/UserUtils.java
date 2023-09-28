@@ -22,28 +22,20 @@ public class UserUtils {
         if(UserList.userExist(username)){
             return getUsernames(username);
         } else {
-            return null;
-        }
-    }
+            File directory = new File(PATH + username);
+            if(!directory.mkdir()){
+                System.err.println("Error creating user folder");
+            }
+            File inbox = new File(PATH + username + "/in");
+            if(!inbox.mkdir()){
+                System.err.println("Error creating inbox folder");
+            }
+            File outbox = new File(PATH + username + "/out");
+            if(!outbox.mkdir()){
+                System.err.println("Error creating outbox folder");
+            }
 
-    public Set<String> handleUserRegister(String username) {
-        File directory = new File(PATH + username);
-        if(!directory.mkdir()){
-            System.err.println("Error creating user folder");
+            return getUsernames(username);
         }
-        File inbox = new File(PATH + username + "/in");
-        if(!inbox.mkdir()){
-            System.err.println("Error creating inbox folder");
-        }
-        File outbox = new File(PATH + username + "/out");
-        if(!outbox.mkdir()){
-            System.err.println("Error creating outbox folder");
-        }
-
-        return getUsernames(username);
-    }
-
-    public void handleUserLogout(String username) {
-
     }
 }

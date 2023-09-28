@@ -5,39 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15c324ec-f50d-4c84-9349-3fd9f60df90e" name="Changes" comment="Initial Commit">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/LoginController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/Mail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/MailBoxController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/NewMessageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/RootLayoutController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/LogVerbose.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/MailHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerLayoutController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/CS_Comm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/Email.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/LoginResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/Assets/Inbox.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/FrontPage.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/MailBox.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/RootLayout.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/SendMessages.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Server/ServerLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/HelloApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/HelloController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/hello-view.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/Mail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/Mail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/MailBoxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/MailBoxController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/NewMessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/NewMessageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/RootLayoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/RootLayoutController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/MailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/MailHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/MailBox.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/MailBox.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/RootLayout.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/RootLayout.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/SendMessages.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/SendMessages.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +48,9 @@
       </UrlAndAccount>
     </option>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -76,6 +59,7 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{

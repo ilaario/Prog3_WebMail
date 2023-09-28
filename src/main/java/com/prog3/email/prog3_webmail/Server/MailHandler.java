@@ -2,13 +2,12 @@ package com.prog3.email.prog3_webmail.Server;
 
 import com.prog3.email.prog3_webmail.Utilities.Email;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MailHandler {
     public MailHandler() {
@@ -66,5 +65,45 @@ public class MailHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public synchronized ArrayList<Email> loadInBox(String user) {
+        ArrayList<Email> allEmails = new ArrayList<>();
+        File dir = new File("src/main/java/com/prog3/email/prog3_webmail/Client/UserFiles/" + user + "/in/");
+
+        if (dir.exists() && dir.isDirectory()) {
+            //try {
+            for (File textFile : Objects.requireNonNull(dir.listFiles())) {
+                try (ObjectInputStream fileInputStream = new ObjectInputStream(new FileInputStream(textFile))) {
+                    Email email = (Email) fileInputStream.readObject();
+                    allEmails.add(email);
+
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return allEmails;
+    }
+
+    public synchronized ArrayList<Email> loadOutBox(String user) {
+
+        ArrayList<Email> out = new ArrayList<>();
+
+        File dir = new File("src/main/java/com/prog3/email/prog3_webmail/Client/UserFiles/" + user + "/in/");
+
+        if (dir.exists() && dir.isDirectory()) {
+
+            for (File textFile : Objects.requireNonNull(dir.listFiles())) {
+                try (ObjectInputStream fileInputStream = new ObjectInputStream(new FileInputStream(textFile))) {
+                    Email email = (Email) fileInputStream.readObject();
+                    out.add(email);
+
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return out;
     }
 }
