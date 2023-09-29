@@ -129,7 +129,7 @@ public class NewMessageController {
         if (toField.getText() == null || toField.getText().length() == 0)
             error += "Missing receiver\n";
 
-        else if (!toField.getText().contains("@javamail.it"))
+        else if (!toField.getText().contains("@javamail.com"))
             error += "Invalid receiver email format\n";
 
         if (mail.getReceivers().size() == 0)

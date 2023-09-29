@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prog3.email.prog3_webmail.Client.LoginController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prog3.email.prog3_webmail.Client.LoginController">
    <center>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0">
          <children>
@@ -18,7 +18,7 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="mailField" layoutX="237.0" layoutY="216.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="123.0" promptText="Email" />
+            <TextField fx:id="mailField" text="\@javamail.com" layoutX="237.0" layoutY="216.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="123.0" promptText="Email" />
             <Label fx:id="pw" layoutX="271.0" layoutY="190.0" text="Password">
                <font>
                   <Font size="13.0" />

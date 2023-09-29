@@ -5,12 +5,13 @@ import javafx.collections.ObservableList;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class UserList implements Serializable {
     private static ObservableList<String> users;
 
     public UserList(List<String> users) {
-        this.users = FXCollections.observableArrayList(users);
+        this.users = FXCollections.observableList(users);
     }
 
     public UserList(){

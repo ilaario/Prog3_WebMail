@@ -72,7 +72,7 @@ public class Mail implements Serializable {
     private void setReceivers(String receivers) {
         ArrayList<String> receiversList = new ArrayList<>();
 
-        String[] receiversArray = receivers.split(",");
+        String[] receiversArray = receivers.split(";");
         for (String receiver : receiversArray) {
             String trimmedReceiver = receiver.trim();
             if (isValidEmail(trimmedReceiver))
@@ -84,7 +84,7 @@ public class Mail implements Serializable {
 
     private boolean isValidEmail(String trimmedReceiver) {
         Matcher m = VALID_EMAIL_ADDRESS_REGEX.matcher(trimmedReceiver);
-        return m.find(); //maybe use m.matches() instead
+        return m.matches(); //maybe use m.matches() instead
     }
 
     public StringProperty toStringProperty(){

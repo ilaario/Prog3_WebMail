@@ -37,13 +37,14 @@ public class ServerHandler implements Runnable {
     }
 
     public UserList getUserList() {
-        File directory = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/");
+        File directory = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles");
         File[] users = directory.listFiles();
 
         if (users != null) {
             for (File user : users) {
                 if (user.isDirectory()) {
                     String username = user.getName();
+                    System.out.println("[ServerHandler] User: " + username);
                     userList.addUser(username);
                 }
             }
@@ -56,32 +57,24 @@ public class ServerHandler implements Runnable {
         try {
             try {
                 UserList userList = this.getUserList();
-                for(String user : userList.getUsers()){
+                /*for(String user : userList.getUsers()){
                     log.setLog("user list is " + user);
-                }
+                }*/
 
+                assert userList != null;
                 try {
                     CS_Comm comm = (CS_Comm) in.readObject();
                     log.setLog("Received: " + comm.getCommand());
-                    switch (comm.getCommand()){
-                        case "login":
-                            handleLogin((String)comm.getData());
-                            break;
-                        case "send":
-                            handleSend(userList, (Email)comm.getData());
-                            break;
-                        case "delete":
-                            handleDelete((String) ((Pair) comm.getData()).getKey(), (Email) ((Pair) comm.getData()).getValue());
-                            break;
-                        case "inbox":
-                            handleInboxAction((String)((Pair) comm.getData()).getKey(), (List<Email>) ((Pair) comm.getData()).getValue());
-                            break;
-                        case "outbox":
-                            handleOutboxAction((String)((Pair) comm.getData()).getKey(), (List<Email>) ((Pair) comm.getData()).getValue());
-                            break;
-                        default:
-                            log.setLog("Command not recognized by server");
-                            break;
+                    switch (comm.getCommand()) {
+                        case "login" -> handleLogin((String) comm.getData());
+                        case "send" -> handleSend(userList, (Email) comm.getData());
+                        case "delete" ->
+                                handleDelete((String) ((Pair) comm.getData()).getKey(), (Email) ((Pair) comm.getData()).getValue());
+                        case "inbox" ->
+                                handleInboxAction((String) ((Pair) comm.getData()).getKey(), (List<Email>) ((Pair) comm.getData()).getValue());
+                        case "outbox" ->
+                                handleOutboxAction((String) ((Pair) comm.getData()).getKey(), (List<Email>) ((Pair) comm.getData()).getValue());
+                        default -> log.setLog("Command not recognized by server");
                     }
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);

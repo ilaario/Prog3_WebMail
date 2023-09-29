@@ -35,8 +35,16 @@ public class ClientController implements Serializable {
 
 
     public boolean checkConnection() {
-        if (serverStatus)
-            return true;
+        if (serverStatus){
+            System.out.println("[ClientController] checkConnection() serverStatus: " + serverStatus);
+            if(socket != null && socket.isConnected() && !(socket.isClosed())){
+                return true;
+            } else {
+                return connectToSocket();
+            }
+
+        }
+        System.out.println("[ClientController] checkConnection() serverStatus: " + serverStatus);
         return connectToSocket();
     }
 
@@ -70,7 +78,7 @@ public class ClientController implements Serializable {
         popup.setTitle("Server down");
         popup.setHeaderText("Server is down");
         popup.setContentText("Server is down, please try again later");
-        popup.showAndWait();
+        popup.show();
     }
 
     public void showServerUpNotification() {
@@ -80,7 +88,7 @@ public class ClientController implements Serializable {
             popup.setTitle("Server up");
             popup.setHeaderText("Server is up");
             popup.setContentText("Server is up, you can use the application");
-            popup.showAndWait();
+            popup.show();
         });
     }
 
@@ -90,44 +98,49 @@ public class ClientController implements Serializable {
         popup.setTitle("Mail not exist");
         popup.setHeaderText("Mail not exist");
         popup.setContentText("Mail not exist, try it again");
-        popup.showAndWait();
+        popup.show();
     }
 
-    private static CS_Comm sendCMToServer(CS_Comm cm) throws Exception {
+    private static CS_Comm sendCMToServer(CS_Comm cm) {
         try {
-            if(out == null || in == null)
-                throw new Exception("out is null");
+            if(out == null || in == null) return null;
+            System.out.println("[ClientController] Socket: " + socket);
+            System.out.println("[ClientController] sendCMToServer() cm: " + cm + " cm.getCommand(): \"" + cm.getCommand() + "\" cm.getData(): " + cm.getData());
+
             out.writeObject(cm);
 
             CS_Comm cmFromServer = (CS_Comm) in.readObject();
             return cmFromServer;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception("Error in sendCMToServer");
+            return null;
         }
     }
 
     public int requestInbox(){
         try {
             if(!checkConnection())
-                throw new Exception("Server is down");
+                return -1;
             CS_Comm cm = new CS_Comm("inbox", new Pair<>(username,(ArrayList)userModel.getInbox()));
             CS_Comm cmFromServer = sendCMToServer(cm);
             if(cmFromServer == null)
-                throw new Exception("Error in requestInbox");
+                return -1;
             Object body = cmFromServer.getData();
             if(!(body instanceof ArrayList))
-                throw new Exception("Error in requestInbox");
+                return -1;
             ArrayList<Email> res = (ArrayList<Email>) body;
             if(!res.isEmpty()) {
                 ObservableList<Email> inbox = FXCollections.observableList(res);
+                notificationManager();
                 this.userModel.addToInbox(inbox);
             }
+            System.out.println("[ClientController] requestInbox() res.size(): " + res.size());
             closeSocketConnection();
+            System.out.println("[ClientController] requestInbox() res.size(): " + res.size());
             return res.size();
         } catch (Exception e){
             e.printStackTrace();
-            throw new RuntimeException("Error in requestInbox");
+            throw new RuntimeException("[ClientController] Error in requestInbox");
         }
     }
 
@@ -178,14 +191,9 @@ public class ClientController implements Serializable {
 
             CS_Comm cm = new CS_Comm("login", username);
             CS_Comm cmFromServer = sendCMToServer(cm);
-
-            if(cmFromServer == null)
-                throw new Exception("Error in login");
-
             closeSocketConnection();
         } catch (Exception e){
             e.printStackTrace();
-            throw new RuntimeException("Error in login");
         }
     }
 

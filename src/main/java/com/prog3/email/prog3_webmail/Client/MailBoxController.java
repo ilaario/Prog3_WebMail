@@ -197,7 +197,7 @@ public class MailBoxController {
     public void updateInbox() {
         int size = this.cc.requestInbox();
         if(size == -1)
-            System.out.println("Error requesting inbox");
+            System.out.println("[MailBoxController] Error requesting inbox");
         if(size > 0)
             this.updateInboxEmails();
     }
@@ -210,7 +210,7 @@ public class MailBoxController {
     }
 
     @FXML
-    private void inizialize(){
+    private void initialize(){
         // Set up the columns in the inbox table
         inSenderColumn.setCellValueFactory(new PropertyValueFactory<>("sender"));
         inSubjectColumn.setCellValueFactory(new PropertyValueFactory<>("subject"));

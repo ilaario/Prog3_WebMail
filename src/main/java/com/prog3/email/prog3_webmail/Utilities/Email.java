@@ -1,10 +1,11 @@
 package com.prog3.email.prog3_webmail.Utilities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Email {
+public class Email implements Serializable {
     private String id;
     private String from;
     private ArrayList<String> to;

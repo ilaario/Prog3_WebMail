@@ -85,7 +85,7 @@ public class LoginController {
 
     private boolean checkValidPassword(String password) {
         Matcher m = VALID_PASSWORD_REGEX.matcher(password);
-        return m.find(); //maybe use m.matches() instead
+        return m.matches(); //maybe use m.matches() instead
     }
 
     private void checkConnection() {
@@ -96,18 +96,14 @@ public class LoginController {
 
     private void startServerCheckTimer() {
         serverStatus = Executors.newSingleThreadExecutor();
-        serverStatus.submit(() -> {
+        serverStatus.execute(() -> {
             while (true) {
-                if (!cc.checkConnection()) {
-                    cc.showServerDownNotification();
-                    break;
-                }
                 try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    Platform.runLater(this::checkConnection);
+                    Thread.sleep(500);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                Platform.runLater(this::checkConnection);
             }
         });
     }
@@ -150,7 +146,7 @@ public class LoginController {
         }
     }
 
-    private void openMailBox() throws IOException {
+    private void openMailBox() {
         try {
             FXMLLoader loaderContainer = new FXMLLoader(ClientMain.class.getResource("MailBox.fxml"));
             root.setCenter(loaderContainer.load());

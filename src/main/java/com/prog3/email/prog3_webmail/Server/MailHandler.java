@@ -20,11 +20,11 @@ public class MailHandler {
             List<String> to = email.getTo();
 
             System.out.println("[MailHandler] Saving email from " + from + " to " + to);
-            File senderDir = new File("/UsersFiles/" + from + "/outbox/");
+            File senderDir = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/" + from + "/out/");
             if(!senderDir.exists()) {
                 senderDir.mkdirs();
             }
-            File emailFile = new File(senderDir, email.getId() + " - " + email.getDate() + ".email");
+            File emailFile = new File(senderDir, email.getId() + " - " + email.getDate() + ".txt");
             System.out.println("[MailHandler] Email file: " + emailFile);
 
             ObjectOutputStream fileOutputStream = new ObjectOutputStream(new FileOutputStream(emailFile));
@@ -33,11 +33,11 @@ public class MailHandler {
             fileOutputStream.close();
 
             for (String r : to){
-                File receiverDir = new File("/UsersFiles/" + r + "/inbox/");
+                File receiverDir = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/" + r + "/in/");
                 if(!receiverDir.exists()) {
                     receiverDir.mkdirs();
                 }
-                emailFile = new File(receiverDir, email.getId() + " - " + email.getDate() + ".email");
+                emailFile = new File(receiverDir, email.getId() + " - " + email.getDate() + ".txt");
                 System.out.println("[MailHandler] Email file: " + emailFile);
 
                 fileOutputStream = new ObjectOutputStream(new FileOutputStream(emailFile));
@@ -55,13 +55,13 @@ public class MailHandler {
 
     public void delete(String user, Email data) {
         try {
-            Files.delete(Paths.get("/UsersFiles/" + user + "/inbox/" + data.getId() + " - " + data.getDate() + ".email"));
+            Files.delete(Paths.get("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles" + user + "/in/" + data.getId() + " - " + data.getDate() + ".txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            Files.delete(Paths.get("/UsersFiles/" + user + "/outbox/" + data.getId() + " - " + data.getDate() + ".email"));
+            Files.delete(Paths.get("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles" + user + "/out/" + data.getId() + " - " + data.getDate() + ".txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,7 +69,9 @@ public class MailHandler {
 
     public synchronized ArrayList<Email> loadInBox(String user) {
         ArrayList<Email> allEmails = new ArrayList<>();
-        File dir = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UserFiles/" + user + "/in/");
+        File dir = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/" + user + "/in");
+
+        System.out.println("[MailHandler] Loading inbox for " + user);
 
         if (dir.exists() && dir.isDirectory()) {
             //try {
@@ -83,6 +85,8 @@ public class MailHandler {
                 }
             }
         }
+
+        System.out.println("[MailHandler] Inbox loaded for " + user + ": " + allEmails.size() + " emails");
         return allEmails;
     }
 
@@ -90,7 +94,7 @@ public class MailHandler {
 
         ArrayList<Email> out = new ArrayList<>();
 
-        File dir = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UserFiles/" + user + "/in/");
+        File dir = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/" + user + "/out");
 
         if (dir.exists() && dir.isDirectory()) {
 
