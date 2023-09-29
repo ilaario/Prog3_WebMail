@@ -6,18 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="15c324ec-f50d-4c84-9349-3fd9f60df90e" name="Changes" comment="Initial Commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/Mail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/Mail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/MailBoxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/MailBoxController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/NewMessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/NewMessageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/RootLayoutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/RootLayoutController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/MailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/MailHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/MailBox.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/MailBox.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/RootLayout.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/RootLayout.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/SendMessages.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/SendMessages.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,8 +76,22 @@
       <recent name="com.prog3.email.prog3_webmail.Server" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ClientMain">
-    <configuration name="ClientMain" type="Application" factoryName="Application">
+  <component name="RunManager" selected="Application.Client 3">
+    <configuration name="Client 1" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.prog3.email.prog3_webmail.Client.ClientMain" />
+      <module name="Prog3_WebMail" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Client 2" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.prog3.email.prog3_webmail.Client.ClientMain" />
+      <module name="Prog3_WebMail" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Client 3" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.prog3.email.prog3_webmail.Client.ClientMain" />
       <module name="Prog3_WebMail" />
       <method v="2">
@@ -110,7 +112,9 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.ClientMain" />
+      <item itemvalue="Application.Client 1" />
+      <item itemvalue="Application.Client 2" />
+      <item itemvalue="Application.Client 3" />
       <item itemvalue="Application.ServerMain" />
     </list>
     <recent_temporary>
