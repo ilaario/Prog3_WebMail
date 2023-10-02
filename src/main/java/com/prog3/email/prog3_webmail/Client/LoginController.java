@@ -51,7 +51,7 @@ public class LoginController {
     private RootLayoutController controllerRoot;
     private ExecutorService serverStatus;
 
-    private static final Pattern VALID_PASSWORD_REGEX = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\\\d)(?=.*[*@#$%^&+=!]).{8,}$\n");
+    private static final Pattern VALID_PASSWORD_REGEX = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[*@#$%^&+=!]).{8,}$");
 
     @FXML
     public void loginButton(ActionEvent event) throws IOException {
@@ -68,7 +68,7 @@ public class LoginController {
             return;
         }
 
-        if(checkValidPassword(pwString)){
+        if(!checkValidPassword(pwString)){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error");
