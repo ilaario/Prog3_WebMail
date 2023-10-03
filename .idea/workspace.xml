@@ -4,23 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15c324ec-f50d-4c84-9349-3fd9f60df90e" name="Changes" comment="Commit 5 - Modificato .gitignore per evitare che ogni volta che si configura il SDK richieda di fare una Push">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in/33fcaed6-f18e-4df2-9016-19a57f38d35d - 2023-09-29T17:48:20.828045.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in/eb6b2911-a4b1-40d4-861d-df9e4e581766 - 2023-09-29T17:46:15.299078.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/0f51c3e8-c19f-4517-b4c0-1bd5edae3048 - 2023-09-29T17:41:46.889577.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/33fcaed6-f18e-4df2-9016-19a57f38d35d - 2023-09-29T17:48:20.828045.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/eb6b2911-a4b1-40d4-861d-df9e4e581766 - 2023-09-29T17:46:15.299078.txt" afterDir="false" />
+    <list default="true" id="15c324ec-f50d-4c84-9349-3fd9f60df90e" name="Changes" comment="Commit 7 - Controllo password corretto">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/Mail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/Mail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/MailBoxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/MailBoxController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/NewMessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/NewMessageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/MailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/MailHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/Email.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/Email.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/FrontPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/FrontPage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in/33fcaed6-f18e-4df2-9016-19a57f38d35d - 2023-09-29T17:48:20.828045.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in/90628a37-f808-4e39-b329-fb08071edfab - 2023-10-02T14:08:15.539197.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in/eb6b2911-a4b1-40d4-861d-df9e4e581766 - 2023-09-29T17:46:15.299078.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/0f51c3e8-c19f-4517-b4c0-1bd5edae3048 - 2023-09-29T17:41:46.889577.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/33fcaed6-f18e-4df2-9016-19a57f38d35d - 2023-09-29T17:48:20.828045.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/90628a37-f808-4e39-b329-fb08071edfab - 2023-10-02T14:08:15.539197.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/eb6b2911-a4b1-40d4-861d-df9e4e581766 - 2023-09-29T17:46:15.299078.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +90,7 @@
       <recent name="com.prog3.email.prog3_webmail.Server" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Client 2">
+  <component name="RunManager" selected="Application.Client 1">
     <configuration name="2 Client" type="Application" factoryName="Application" singleton="false">
       <option name="MAIN_CLASS_NAME" value="com.prog3.email.prog3_webmail.Client.ClientMain" />
       <module name="Prog3_WebMail" />
@@ -182,7 +181,23 @@
       <option name="project" value="LOCAL" />
       <updated>1695975403156</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Commit 6 - Mail funzionanti, vengono mandate e ricevute, vengono mostrate in Inbox (rotta, duplica mail) e Outbox. Delete cancella contenuto Mail (rotto, dopo la spedizione perde Subject e Text, sostituiti da mail mittente)">
+      <option name="closed" value="true" />
+      <created>1696008948057</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1696008948057</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Commit 7 - Controllo password corretto">
+      <option name="closed" value="true" />
+      <created>1696249325082</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1696249325082</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,7 +219,9 @@
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="Commit 4 - Create nuove config per avviare più client assieme" />
     <MESSAGE value="Commit 5 - Modificato .gitignore per evitare che ogni volta che si configura il SDK richieda di fare una Push" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit 5 - Modificato .gitignore per evitare che ogni volta che si configura il SDK richieda di fare una Push" />
+    <MESSAGE value="Commit 6 - Mail funzionanti, vengono mandate e ricevute, vengono mostrate in Inbox (rotta, duplica mail) e Outbox. Delete cancella contenuto Mail (rotto, dopo la spedizione perde Subject e Text, sostituiti da mail mittente)" />
+    <MESSAGE value="Commit 7 - Controllo password corretto" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit 7 - Controllo password corretto" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -213,11 +230,6 @@
           <properties class="java.util.ConcurrentModificationException" package="java.util" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientController.java</url>
-          <line>121</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>

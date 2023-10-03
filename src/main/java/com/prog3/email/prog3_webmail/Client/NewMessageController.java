@@ -48,11 +48,11 @@ public class NewMessageController {
         this.cc = cc;
         this.user = user;
         this.mailContainerController = mailContainerController;
+        mailFrom.setText(user.getUsername());
     }
 
     @FXML
     private void initialize() {
-
     }
 
     public void setDialog(Stage dialog) {
@@ -121,6 +121,7 @@ public class NewMessageController {
         alert.setTitle("Mail is going to be sent");
         alert.setHeaderText("Mail will be sent to " + toField.getText());
         alert.setContentText("Mail will be  sent to " + toField.getText());
+        dialog.close();
         alert.showAndWait();
     }
 

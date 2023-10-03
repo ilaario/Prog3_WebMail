@@ -3,7 +3,9 @@ package com.prog3.email.prog3_webmail.Server;
 import com.prog3.email.prog3_webmail.Utilities.Email;
 
 import java.io.*;
+import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ public class MailHandler {
             if(!senderDir.exists()) {
                 senderDir.mkdirs();
             }
-            File emailFile = new File(senderDir, email.getId() + " - " + email.getDate() + ".txt");
+            File emailFile = new File(senderDir, email.getDate() + ".txt");
             System.out.println("[MailHandler] Email file: " + emailFile);
 
             ObjectOutputStream fileOutputStream = new ObjectOutputStream(new FileOutputStream(emailFile));
@@ -37,7 +39,7 @@ public class MailHandler {
                 if(!receiverDir.exists()) {
                     receiverDir.mkdirs();
                 }
-                emailFile = new File(receiverDir, email.getId() + " - " + email.getDate() + ".txt");
+                emailFile = new File(receiverDir, email.getDate() + ".txt");
                 System.out.println("[MailHandler] Email file: " + emailFile);
 
                 fileOutputStream = new ObjectOutputStream(new FileOutputStream(emailFile));
@@ -53,17 +55,30 @@ public class MailHandler {
         return true;
     }
 
-    public void delete(String user, Email data) {
+    public synchronized void delete(String user, Email data) {
         try {
-            Files.delete(Paths.get("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles" + user + "/in/" + data.getId() + " - " + data.getDate() + ".txt"));
+            System.out.println("[MailHandler] Deleting email from " + user + " inbox (" + data.getDate() + ".txt" + ")");
+            Files.delete(Paths.get(
+                    "/Users/ilaario/Desktop/Prog III/Prog3_WebMail/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/" + user + "/in/" + data.getDate() + ".txt"));
+            System.out.println("[MailHandler] Deleted email from " + user + " inbox (" + data.getDate() + ".txt" + ")");
+        } catch (NoSuchFileException e) {
+            System.err.println("[MailHandler] Inbox - No such file or directory");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("[MailHandler] Inbox - Invalid permissions");
+        } catch (SecurityException e) {
+            System.err.println("[MailHandler] Inbox - Not enough permissions");
         }
 
         try {
-            Files.delete(Paths.get("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles" + user + "/out/" + data.getId() + " - " + data.getDate() + ".txt"));
+            Files.delete(Paths.get(
+                    "/Users/ilaario/Desktop/Prog III/Prog3_WebMail/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/" + user + "/out/" +  data.getDate() + ".txt"));
+            System.out.println("[MailHandler] Deleted email from " + user + " outbox (" + data.getId() + " - " +  data.getDate() + ".txt" + ")");
+        } catch (NoSuchFileException e) {
+            System.err.println("[MailHandler] Outbox - No such file or directory");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("[MailHandler] Outbox - Invalid permissions");
+        } catch (SecurityException e) {
+            System.err.println("[MailHandler] Outbox - Not enough permissions");
         }
     }
 
@@ -91,10 +106,10 @@ public class MailHandler {
     }
 
     public synchronized ArrayList<Email> loadOutBox(String user) {
-
         ArrayList<Email> out = new ArrayList<>();
-
         File dir = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/" + user + "/out");
+
+        System.out.println("[MailHandler] Loading outbox for " + user);
 
         if (dir.exists() && dir.isDirectory()) {
 
@@ -108,6 +123,8 @@ public class MailHandler {
                 }
             }
         }
+
+        System.out.println("[MailHandler] Outbox loaded for " + user + ": " + out.size() + " emails");
         return out;
     }
 }

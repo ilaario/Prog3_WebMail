@@ -44,7 +44,6 @@ public class ServerHandler implements Runnable {
             for (File user : users) {
                 if (user.isDirectory()) {
                     String username = user.getName();
-                    System.out.println("[ServerHandler] User: " + username);
                     userList.addUser(username);
                 }
             }
@@ -96,6 +95,7 @@ public class ServerHandler implements Runnable {
             CS_Comm response = new CS_Comm("delete_ok", data);
             out.writeObject(response);
             out.flush();
+            log.setLog("Mail deleted");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -166,7 +166,7 @@ public class ServerHandler implements Runnable {
                 newEmails.add(email);
             }
         }
-        CS_Comm response = new CS_Comm("outbox",newEmails);
+        CS_Comm response = new CS_Comm("outbox", newEmails);
         out.writeObject(response);
     }
 

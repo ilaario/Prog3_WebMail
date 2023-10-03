@@ -72,7 +72,7 @@ public class LoginController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error");
-            alert.setContentText("Invalid password! \n Insert a valid password (at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character)");
+            alert.setContentText("Invalid password! \nInsert a valid password (at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character)");
             alert.showAndWait();
             return;
         }

@@ -88,7 +88,7 @@ public class MailBoxController {
     private Button btnNewMail;
 
     @FXML
-    private Button bntDelete;
+    private Button btnDelete;
 
     @FXML
     private Button btnReply;
@@ -129,11 +129,31 @@ public class MailBoxController {
         this.username = this.userModel.getUsername();
         this.cc = cc;
         this.updateAllEmails();
+        this.hideMailDetails();
         startMailUpdater();
     }
 
     public void setTopStage(Stage topStage) {
         this.topStage = topStage;
+    }
+
+    private void hideMailDetails() {
+        lblSubject.setText("");
+        lblFromVuota.setText("");
+        lblDateVuota.setText("");
+        lblToVuota.setText("");
+        txtArea.setText("");
+        btnReply.setVisible(false);
+        btnDelete.setVisible(false);
+        txtArea.setVisible(false);
+        lblSubject.setVisible(false);
+        lblFrom.setVisible(false);
+        lblTo.setVisible(false);
+        lblDate.setVisible(false);
+        lblSubjectVuota.setVisible(false);
+        lblFromVuota.setVisible(false);
+        lblToVuota.setVisible(false);
+        lblDateVuota.setVisible(false);
     }
 
     private void startMailUpdater() {
@@ -164,7 +184,19 @@ public class MailBoxController {
                 Mail m = new Mail(inboxEmail.getId(), inboxEmail.getFrom(), inboxEmail.getSubject(), receivers, inboxEmail.getDate(),
                         inboxEmail.getSubject());
                 synchronized (lock) {
-                    Platform.runLater(() -> inTable.getItems().add(m));
+                    Platform.runLater(() -> {
+                        if (inTable.getItems().isEmpty()) {
+                            inTable.getItems().add(m);
+                            return;
+                        }
+                        synchronized (lock){
+                            for (Mail mail : inTable.getItems()) {
+                                if (mail.getId().equals(m.getId()))
+                                    return;
+                                inTable.getItems().add(m);
+                            }
+                        }
+                    });
                 }
             });
         });
@@ -176,11 +208,22 @@ public class MailBoxController {
         this.userModel.getOutbox().stream().forEach((outboxEmail) -> {
             emailUpdater.submit(() -> {
                 String receivers = outboxEmail.getTo().stream().map(Object::toString).collect(Collectors.joining("; "));
-
                 Mail m = new Mail(outboxEmail.getId(), outboxEmail.getFrom(), outboxEmail.getSubject(), receivers, outboxEmail.getDate(),
                         outboxEmail.getSubject());
                 synchronized (lock) {
-                    Platform.runLater(() -> outTable.getItems().add(m));
+                    Platform.runLater(() -> {
+                        if (outTable.getItems().isEmpty()) {
+                            outTable.getItems().add(m);
+                            return;
+                        }
+                        synchronized (lock){
+                            for (Mail mail : outTable.getItems()) {
+                                if (mail.getId().equals(m.getId()))
+                                    return;
+                                outTable.getItems().add(m);
+                            }
+                        }
+                    });
                 }
             });
         });
@@ -201,6 +244,7 @@ public class MailBoxController {
         if(size > 0)
             this.updateInboxEmails();
     }
+
     public void updateOutbox() {
         int size = this.cc.requestOutbox();
         if(size == -1)
@@ -238,13 +282,25 @@ public class MailBoxController {
     }
 
     private void showMailDetails(Mail mail) {
+        txtArea.setVisible(true);
+        lblSubject.setVisible(true);
+        lblFrom.setVisible(true);
+        lblTo.setVisible(true);
+        lblDate.setVisible(true);
+        lblSubjectVuota.setVisible(true);
+        lblFromVuota.setVisible(true);
+        lblToVuota.setVisible(true);
+        lblDateVuota.setVisible(true);
+        imgInbox.setVisible(false);
         lblSubject.setText(mail.getSubject());
         lblFromVuota.setText(mail.getSender());
         lblDateVuota.setText(mail.getFormattedDate());
         lblToVuota.setText("" + mail.getReceivers());
         txtArea.setText(mail.getMessage());
+        btnReply.setVisible(true);
         btnReply.setDisable(false);
-        bntDelete.setDisable(false);
+        btnDelete.setVisible(true);
+        btnDelete.setDisable(false);
     }
 
     @FXML
@@ -286,6 +342,8 @@ public class MailBoxController {
             } catch (Exception xcpt) {
 
             }
+        } else {
+            System.out.println("[MailBoxController] Error deleting mail");
         }
     }
 

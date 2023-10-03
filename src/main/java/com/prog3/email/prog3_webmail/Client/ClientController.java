@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class ClientController implements Serializable {
     private String username;
@@ -36,7 +37,6 @@ public class ClientController implements Serializable {
 
     public boolean checkConnection() {
         if (serverStatus){
-            System.out.println("[ClientController] checkConnection() serverStatus: " + serverStatus);
             if(socket != null && socket.isConnected() && !(socket.isClosed())){
                 return true;
             } else {
@@ -44,7 +44,6 @@ public class ClientController implements Serializable {
             }
 
         }
-        System.out.println("[ClientController] checkConnection() serverStatus: " + serverStatus);
         return connectToSocket();
     }
 
@@ -119,28 +118,28 @@ public class ClientController implements Serializable {
 
     public int requestInbox(){
         try {
-            if(!checkConnection())
+            if (!connectToSocket()) {
+                showServerDownNotification();
                 return -1;
-            CS_Comm cm = new CS_Comm("inbox", new Pair<>(username,(ArrayList)userModel.getInbox()));
-            CS_Comm cmFromServer = sendCMToServer(cm);
-            if(cmFromServer == null)
+            }
+            CS_Comm request = new CS_Comm("inbox", new Pair<>(username,(ArrayList)userModel.getInbox()));
+            CS_Comm response = sendCMToServer(request);
+            if (response == null) {
                 return -1;
-            Object body = cmFromServer.getData();
-            if(!(body instanceof ArrayList))
+            }
+            Object body = response.getData();
+            if (!(body instanceof ArrayList)) {
                 return -1;
+            }
             ArrayList<Email> res = (ArrayList<Email>) body;
             if(!res.isEmpty()) {
-                ObservableList<Email> inbox = FXCollections.observableList(res);
-                notificationManager();
-                this.userModel.addToInbox(inbox);
+                ObservableList<Email> resList = FXCollections.observableList(res);
+                this.userModel.addToInbox(resList);
             }
-            System.out.println("[ClientController] requestInbox() res.size(): " + res.size());
             closeSocketConnection();
-            System.out.println("[ClientController] requestInbox() res.size(): " + res.size());
             return res.size();
-        } catch (Exception e){
-            e.printStackTrace();
-            throw new RuntimeException("[ClientController] Error in requestInbox");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -224,8 +223,15 @@ public class ClientController implements Serializable {
                 showServerDownNotification();
                 return false;
             }
-            CS_Comm deleteMail = new CS_Comm("delete", selectedMail);
-            CS_Comm response = (CS_Comm) sendCMToServer(deleteMail);
+
+            ArrayList<String> receivers = (ArrayList<String>) selectedMail.getReceivers().stream().map(receiver -> receiver)
+                    .collect(Collectors.toList());
+
+            Email e = new Email(selectedMail.getSender(), receivers, selectedMail.getSubject(), selectedMail.getMessage(), selectedMail.getDate());
+
+            Pair<String, Email> pair = new Pair(this.username, e);
+            CS_Comm deleteMail = new CS_Comm("delete", pair);
+            CS_Comm response = sendCMToServer(deleteMail);
             if (response.getCommand().equals("delete_not_ok")) {
                 mailNotExist();
                 closeSocketConnection();
