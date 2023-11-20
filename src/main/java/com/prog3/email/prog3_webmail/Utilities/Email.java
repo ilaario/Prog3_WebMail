@@ -5,103 +5,133 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/*
+ * @brief: this class is the email object that is used to send emails between client and server
+ * it differs with Mail class because this is the one that occur in backend, while Mail is the one that occur in frontend
+ * */
 public class Email implements Serializable {
+
     private String id;
-    private String from;
-    private ArrayList<String> to;
+    private String sender;
+    private ArrayList<String> receivers;
     private String subject;
-    private String body;
-    private LocalDateTime date;
-    private boolean read;
-    private boolean deleted;
+    private String text;
+    private LocalDateTime timestamp;
+    private boolean bin;
 
-    public Email(String from, ArrayList<String> to, String subject, String body, LocalDateTime date) {
+    private static final long serialVersionUID = -6704926522070994084L;
+
+    public Email(String sender, ArrayList<String> receivers, String subject, String text, LocalDateTime timestamp) {
         this.id = UUID.randomUUID().toString();
-        this.from = from;
-        this.to = to;
+        this.sender = sender;
         this.subject = subject;
-        this.body = body;
-        this.date = date;
+        this.text = text;
+        this.receivers = new ArrayList<>(receivers);
+        this.timestamp = timestamp;
     }
 
-    public Email(String id, String from, ArrayList<String> to, String subject, String body, LocalDateTime date) {
+    public Email(String id, String sender, ArrayList<String> receivers, String subject, String text, LocalDateTime timestamp) {
         this.id = id;
-        this.from = from;
-        this.to = to;
+        this.sender = sender;
         this.subject = subject;
-        this.body = body;
-        this.date = date;
+        this.text = text;
+        this.receivers = new ArrayList<>(receivers);
+        this.timestamp = timestamp;
     }
 
-    public String getId() {
-        return id;
+    public String getSender() {
+        return sender;
     }
 
-    public String getFrom() {
-        return from;
-    }
-
-    public ArrayList<String> getTo() {
-        return to;
+    public ArrayList<String> getReceivers() {
+        return receivers;
     }
 
     public String getSubject() {
         return subject;
     }
 
-    public String getBody() {
-        return body;
+    public String getText() {
+        return text;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public String getId() {
+        return id;
     }
 
-    public boolean isRead() {
-        return read;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public boolean isDeleted() {
-        return deleted;
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
-    public void setRead(){
-        this.read = true;
+    public void setReceivers(ArrayList<String> receivers) {
+        this.receivers = receivers;
     }
 
-    public void setDeleted(){
-        this.deleted = true;
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public boolean getBin() {
+        return bin;
+    }
+
+    public void setBin(boolean bin) {
+        this.bin = bin;
     }
 
     @Override
     public String toString() {
-        return "Email{" +
-                "id='" + id + '\'' +
-                ", from='" + from + '\'' +
-                ", to=" + to +
-                ", subject='" + subject + '\'' +
-                ", body='" + body + '\'' +
-                ", date=" + date +
-                ", read=" + read +
-                ", deleted=" + deleted +
-                '}';
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("{\n");
+        builder.append("  \"id\": \" " + id + "\",\n");
+        builder.append("  \"mittente\": \"" + sender + "\",\n");
+        builder.append("  \"destinatario\": \"" + receivers + "\",\n");
+        builder.append("  \"oggetto\": \"" + subject + "\",\n");
+        builder.append("  \"testo\": \"" + text + "\",\n");
+        if (timestamp != null) {
+            builder.append("  \"timestamp\": \"" + timestamp + "\"\n");
+        } else {
+            builder.append("  \"timestamp\": \"null\"\n");
+        }
+        builder.append("}");
+
+        return builder.toString();
     }
 
-    public boolean equals(Email email){
-        if(this.id.equals(email.getId())) {
+    @Override
+    public boolean equals(Object object) {
+        if(this == object)
             return true;
-        } else {
-            if(this == email)
-                return true;
-            if(email == null)
-                return false;
-            if(getClass() != email.getClass())
-                return false;
-        }
+        if(object == null)
+            return false;
+        if(getClass() != object.getClass())
+            return false;
+        Email email = (Email) object;
+
+        if(this.id.equals(email.getId()))
+            return true;
         return false;
     }
 
-    public int hashCode(){
+    @Override
+    public int hashCode() {
         return this.id.hashCode();
     }
 }

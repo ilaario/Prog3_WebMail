@@ -4,28 +4,32 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.Serializable;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable; //this make object persistent
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Mail implements Serializable {
-    private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9_.+-]+\\.[a-zA-Z0-9-.]+");
     private String id;
-    private StringProperty from;
+    private StringProperty sender;
     private StringProperty subject;
-    private ListProperty<String> to;
+    private ListProperty<String> receivers;
     private ObjectProperty<LocalDateTime> date;
     private StringProperty message;
     private BooleanProperty isSent;
 
     public Mail(String id, String sender, String subject, String receivers, LocalDateTime localDateTime, String message) {
         this.id = id;
-        this.from = new SimpleStringProperty(sender);
+        this.sender = new SimpleStringProperty(sender);
         this.subject = new SimpleStringProperty(subject);
-        this.to = new SimpleListProperty<>();
+        this.receivers = new SimpleListProperty<>();
         if (receivers != null)
             setReceivers(receivers);
         this.date = new SimpleObjectProperty<>(localDateTime);
@@ -41,16 +45,16 @@ public class Mail implements Serializable {
         this.id = id;
     }
 
-    public String setSender() {
-        return from.get();
+    public String getSender() {
+        return sender.get();
     }
 
     public StringProperty senderProperty() {
-        return from;
+        return sender;
     }
 
     public void setSender(String sender) {
-        this.from.set(sender);
+        this.sender.set(sender);
     }
 
     public String getSubject() {
@@ -66,53 +70,47 @@ public class Mail implements Serializable {
     }
 
     public ObservableList<String> getReceivers() {
-        return to.get();
+        return receivers.get();
     }
 
-    private void setReceivers(String receivers) {
-        ArrayList<String> receiversList = new ArrayList<>();
+    /*
+     * @brief: parser to use the receivers string as a list of receivers, use isValidEmail to check if the email is valid using regex
+     * */
+    public void setReceivers(String r) {
+        ArrayList<String> list = new ArrayList<>();
 
-        String[] receiversArray = receivers.split(";");
-        for (String receiver : receiversArray) {
+        String[] receiverArray = r.split("; ");
+        for (String receiver : receiverArray) {
             String trimmedReceiver = receiver.trim();
-            if (isValidEmail(trimmedReceiver))
-                receiversList.add(trimmedReceiver);
+            if (isValidEmail(trimmedReceiver)) {
+                list.add(trimmedReceiver);
+            }
         }
 
-        to.set(FXCollections.observableArrayList(receiversList));
+        receivers.set(FXCollections.observableArrayList(list));
     }
 
-    private boolean isValidEmail(String trimmedReceiver) {
-        Matcher m = VALID_EMAIL_ADDRESS_REGEX.matcher(trimmedReceiver);
-        return m.matches(); //maybe use m.matches() instead
+    /*
+     * @brief: check if the email is valid using regex
+     */
+    private boolean isValidEmail(String email) {
+        Matcher m = Pattern.compile("[a-zA-Z0-9_.+-]+@[a-zA-Z0-9_.+-]+\\.[a-zA-Z0-9-.]+").matcher(email);
+        return m.matches();
     }
 
-    public StringProperty toStringProperty(){
-        if(to == null){
+    public StringProperty receiversStringProperty() {
+        if (receivers == null) {
             return new SimpleStringProperty("");
         }
-        StringBuilder sb = new StringBuilder();
-        for(String s : to){
-            sb.append(s);
-            sb.append(", ");
+        StringBuilder str = new StringBuilder();
+        for (String s : receivers) {
+            str.append(s).append("; ");
         }
-        return new SimpleStringProperty(sb.toString());
+        return new SimpleStringProperty(str.toString());
     }
 
-    public String getToStringProperty(){
-        if(to == null){
-            return "";
-        }
-        StringBuilder sb = new StringBuilder();
-        for(String s : to){
-            sb.append(s);
-            sb.append(", ");
-        }
-        return sb.toString();
-    }
-
-    public ObjectProperty<LocalDateTime> dateProperty() {
-        return date;
+    public String getReceiversString() {
+        return receiversStringProperty().get();
     }
 
     public LocalDateTime getDate() {
@@ -135,42 +133,24 @@ public class Mail implements Serializable {
         this.message.set(message);
     }
 
-    public BooleanProperty isSentProperty() {
-        return isSent;
-    }
-
-    public boolean isSent() {
-        return isSent.get();
-    }
-
-    public void setSent(boolean sent) {
-        isSent.set(sent);
-    }
-
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("- From: ").append(from).append("\n");
-        builder.append("- Subject: ").append(subject).append("\n");
-        builder.append("- To: ").append(to).append("\n");
+
+        builder.append("{\n");
+        builder.append("  \"id\": \" " + id + "\",\n");
+        builder.append("  \"mittente\": \"" + sender + "\",\n");
+        builder.append("  \"destinatario\": \"" + receivers + "\",\n");
+        builder.append("  \"oggetto\": \"" + subject + "\",\n");
+        builder.append("  \"testo\": \"" + message + "\",\n");
         if (date != null) {
-            builder.append("- Date: ").append(getFormattedDate());
+            builder.append("  \"timestamp\": \"" + date + "\"\n");
         } else {
-            builder.append("- Date: null");
+            builder.append("  \"timestamp\": \"null\"\n");
         }
+        builder.append("}");
+
         return builder.toString();
     }
 
-    public String getSender() {
-        return from.get();
-    }
-
-    public String getReceiversString() {
-        StringBuilder sb = new StringBuilder();
-        for (String s : to) {
-            sb.append(s);
-            sb.append(", ");
-        }
-        return sb.toString();
-    }
 }

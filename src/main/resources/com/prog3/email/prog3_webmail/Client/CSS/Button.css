@@ -1,0 +1,22 @@
+/* Stile per il bottone */
+.button {
+    -fx-background-color: #6a9bcf; /* Colore di sfondo blu */
+    -fx-text-fill: white; /* Colore del testo bianco */
+    -fx-border-radius: 5px; /* Bordo arrotondato */
+    -fx-font-family: Roboto;
+}
+
+/* Stile per il bottone al passaggio del mouse (hover) */
+.button:hover {
+    -fx-background-color: #007399; /* Cambio colore al passaggio del mouse */
+}
+
+/* Stile per il bottone quando è premuto */
+.button:pressed {
+    -fx-background-color: #005573; /* Cambio colore al click */
+}
+
+@font-face{
+    font-family: "Roboto";
+    src: url("../Fonts/Roboto-Regular.ttf");
+}

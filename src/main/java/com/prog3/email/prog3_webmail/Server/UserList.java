@@ -5,28 +5,29 @@ import javafx.collections.ObservableList;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class UserList implements Serializable {
-    private static ObservableList<String> users;
+    private ObservableList<String> users;
 
     public UserList(List<String> users) {
-        this.users = FXCollections.observableList(users);
+        this.users = FXCollections.observableArrayList(users);
     }
 
-    public UserList(){
+    public UserList() {
         users = FXCollections.observableArrayList();
     }
 
-    public void addUser(String user){
+    public void addUser(String user) {
         users.add(user);
     }
 
-    public static boolean userExist(String user){
+    public boolean userExist(String user) {
         return users.contains(user);
     }
 
     public ObservableList<String> getUsers() {
         return users;
     }
+
+
 }

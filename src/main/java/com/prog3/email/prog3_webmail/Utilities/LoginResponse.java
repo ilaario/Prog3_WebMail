@@ -2,7 +2,6 @@ package com.prog3.email.prog3_webmail.Utilities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class LoginResponse implements Serializable {
     private ArrayList<ArrayList<Email>> arrayLists = new ArrayList<>();
@@ -12,4 +11,6 @@ public class LoginResponse implements Serializable {
     public LoginResponse(ArrayList<ArrayList<Email>> arrayLists) {
         this.arrayLists = arrayLists;
     }
+
+
 }

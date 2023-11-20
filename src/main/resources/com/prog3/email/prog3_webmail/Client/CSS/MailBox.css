@@ -1,0 +1,41 @@
+
+/* this is the background of the tab header*/
+.tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color: #BCCEE0;
+}
+
+/* this is the border around the selected tab*/
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+
+/* this is the background of the selected tab*/
+.tab-pane .tab:selected {
+    -fx-background-color: #9ABBDC;
+}
+
+/* this is the background of the unselected tabs*/
+.tab-pane .tab{
+    -fx-background-color: #cddceb;
+}
+
+
+
+/* this is the font of the tabs*/
+#receivedTab {
+    -fx-font-family: "Roboto";
+}
+
+#sentTab {
+    -fx-font-family: "Roboto";
+}
+
+.TextField {
+    -fx-font-family: "Roboto";
+}
+
+@font-face{
+    font-family: "Roboto";
+    src: url("../Fonts/Roboto-Regular.ttf");
+}
+

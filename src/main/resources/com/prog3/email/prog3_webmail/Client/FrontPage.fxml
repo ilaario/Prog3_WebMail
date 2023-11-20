@@ -4,29 +4,43 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prog3.email.prog3_webmail.Client.LoginController">
-   <center>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="20.0">
+<BorderPane fx:id="root" prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.prog3.email.prog3_webmail.Client.LoginController">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
-            <Label fx:id="titolo" layoutX="185.0" layoutY="40.0" text="Welcome to WebMail">
+            <Button fx:id="btnLogin" layoutX="271.0" layoutY="285.0" maxWidth="-Infinity" mnemonicParsing="false" onAction="#loginButton" prefHeight="26.0" prefWidth="60.0" stylesheets="@CSS/Button.css" text="Log in">
                <font>
-                  <Font name="Book Antiqua" size="24.0" />
+                  <Font name="Roboto" size="12.0" />
+               </font>
+            </Button>
+            <Label fx:id="mail" layoutX="281.0" layoutY="117.0" text="Email">
+               <font>
+                  <Font name="Roboto" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="mail" layoutX="283.0" layoutY="119.0" text="Email">
+            <TextField fx:id="mailField" layoutX="239.0" layoutY="142.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="123.0" promptText="Email" text="\@javamail.com">
                <font>
-                  <Font size="13.0" />
+                  <Font name="Roboto" size="12.0" />
+               </font></TextField>
+            <PasswordField fx:id="pwField" layoutX="239.0" layoutY="226.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="123.0" promptText="Password">
+               <font>
+                  <Font name="Roboto" size="12.0" />
+               </font></PasswordField>
+            <Label fx:id="pw" layoutX="270.0" layoutY="200.0" text="Password">
+               <font>
+                  <Font name="Roboto" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="mailField" text="\@javamail.com" layoutX="237.0" layoutY="216.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="123.0" promptText="Email" />
-            <Label fx:id="pw" layoutX="271.0" layoutY="190.0" text="Password">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </Label>
-            <PasswordField fx:id="pwField" layoutX="238.0" layoutY="146.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="123.0" promptText="Password" />
-            <Button fx:id="btnLogin" layoutX="275.0" layoutY="290.0" maxWidth="-Infinity" mnemonicParsing="false" onAction="#loginButton" prefHeight="26.0" prefWidth="60.0" text="Log in" />
+            <Pane prefHeight="77.0" prefWidth="600.0" style="-fx-background-color: #BCCEE0;">
+               <children>
+                  <Label fx:id="titolo" layoutX="154.0" layoutY="10.0" prefHeight="58.0" prefWidth="292.0" text="Welcome to WebMail">
+                     <font>
+                        <Font name="Roboto" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
          </children>
-      </VBox>
-   </center>
+      </Pane>
+   </children>
 </BorderPane>

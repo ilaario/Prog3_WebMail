@@ -1,152 +1,141 @@
 package com.prog3.email.prog3_webmail.Server;
 
 import com.prog3.email.prog3_webmail.Utilities.CS_Comm;
-import com.prog3.email.prog3_webmail.Utilities.LoginResponse;
 import com.prog3.email.prog3_webmail.Utilities.Email;
+import com.prog3.email.prog3_webmail.Utilities.LoginResponse;
+import com.prog3.email.prog3_webmail.Server.LogVerbose;
+import com.prog3.email.prog3_webmail.Server.UserUtils;
+import com.prog3.email.prog3_webmail.Server.UserList;
 import javafx.util.Pair;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
+
+import org.json.*;
 
 public class ServerHandler implements Runnable {
     private Socket incoming;
-    public UserUtils userUtils;
+    public UserUtils userService;
     private MailHandler mailHandler;
 
+
     LogVerbose log;
-    ObjectOutputStream out;
-    ObjectInputStream in;
+    ObjectOutputStream outputStream;
+    ObjectInputStream inputStream;
+
 
     UserList userList = new UserList();
-
     public ServerHandler(Socket incoming, LogVerbose log) {
         this.incoming = incoming;
         this.log = log;
-        userUtils = new UserUtils();
+        userService = new UserUtils();
         try {
-            in = new ObjectInputStream(incoming.getInputStream());
-            out = new ObjectOutputStream(incoming.getOutputStream());
+            inputStream = new ObjectInputStream(incoming.getInputStream());
+            outputStream = new ObjectOutputStream(incoming.getOutputStream());
             this.mailHandler = new MailHandler();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException xcpt) {
+            xcpt.printStackTrace();
         }
+//    System.out.println("serverhandler constructor called");
     }
 
     public UserList getUserList() {
-        File directory = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles");
-        File[] users = directory.listFiles();
+        File userFolder = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/");
+        File[] userFolders = userFolder.listFiles();
 
-        if (users != null) {
-            for (File user : users) {
-                if (user.isDirectory()) {
-                    String username = user.getName();
-                    userList.addUser(username);
+        if (userFolders != null) {
+            for (File folder : userFolders) {
+                if (folder.isDirectory()) {
+                    String folderName = folder.getName();
+                    userList.addUser(folderName);
                 }
             }
         }
+
         return userList;
     }
 
+    /*
+     * @brief: method run, is the first things called, so here in base of the
+     * request we call the right method
+     */
     @Override
     public void run() {
         try {
             try {
                 UserList userList = this.getUserList();
-                /*for(String user : userList.getUsers()){
+                for(String user : userList.getUsers()){
                     log.setLog("user list is " + user);
-                }*/
-
+                }
                 assert userList != null;
+
                 try {
-                    CS_Comm comm = (CS_Comm) in.readObject();
-                    log.setLog("Received: " + comm.getCommand());
-                    switch (comm.getCommand()) {
-                        case "login" -> handleLogin((String) comm.getData());
-                        case "send" -> handleSend(userList, (Email) comm.getData());
-                        case "delete" ->
-                                handleDelete((String) ((Pair) comm.getData()).getKey(), (Email) ((Pair) comm.getData()).getValue());
-                        case "inbox" ->
-                                handleInboxAction((String) ((Pair) comm.getData()).getKey(), (List<Email>) ((Pair) comm.getData()).getValue());
-                        case "outbox" ->
-                                handleOutboxAction((String) ((Pair) comm.getData()).getKey(), (List<Email>) ((Pair) comm.getData()).getValue());
-                        default -> log.setLog("Command not recognized by server");
+                    CS_Comm c = (CS_Comm) inputStream.readObject();
+                    log.setLog("Action registered: " + c.getCommand());
+                    switch (c.getCommand()) {
+                        case "login" -> handleLoginAction((String) c.getData());
+                        case "inbox" -> handleInboxAction((String)((Pair) c.getData()).getKey(), (List<Email>) ((Pair) c.getData()).getValue());
+                        case "send" -> handleSendAction(userList, (Email) c.getData());
+                        case "delete" -> handleDeleteAction((String) ((Pair) c.getData()).getKey(), (Email) ((Pair) c.getData()).getValue());
+                        case "outbox" -> handleOutboxAction((String)((Pair) c.getData()).getKey(), (List<Email>) ((Pair) c.getData()).getValue());
+                        default -> log.setLog("Unrecognized action");
                     }
+
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
-                } catch (EOFException e){
-
+                } catch (EOFException xcpt) {
+//          System.out.println("NULL - end of requests");
                 }
+
             } finally {
                 log.setLog("Client disconnected");
                 incoming.close();
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void handleDelete(String user, Email data) {
-        try{
-            mailHandler.delete(user, data);
-            CS_Comm response = new CS_Comm("delete_ok", data);
-            out.writeObject(response);
-            out.flush();
-            log.setLog("Mail deleted");
+    private void handleDeleteAction(String user, Email body) {
+        try {
+
+            mailHandler.delete(user,body);
+
+            CS_Comm response = new CS_Comm("delete_ok", body);
+
+            outputStream.writeObject(response);
+            outputStream.flush();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
-    private void handleSend(UserList users, Email mail) {
-        Set<String> receivers  = new HashSet<>(mail.getTo());
-        for (String receiver : receivers) {
-            if (!users.userExist(receiver)) {
-                CS_Comm response = new CS_Comm("send_error", "User " + receiver + " does not exist");
-                try {
-                    out.writeObject(response);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return;
-            }
-            log.setLog("Sending mail to " + receiver);
-            mail.setDeleted();
-
-            if(!mailHandler.save(mail)){
-                CS_Comm response = new CS_Comm("send_error", "Error while saving mail");
-                try {
-                    out.writeObject(response);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return;
-            }
-
-            CS_Comm response = new CS_Comm("send_ok", "Mail sent");
-            try {
-                out.writeObject(response);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void handleLogin(String username) throws IOException, ClassNotFoundException {
+    private void handleLoginAction(String username) throws IOException, ClassNotFoundException {
         UserList userList = getUserList();
-        userUtils.handleUserLogin(username);
-        Set<String> set = userUtils.getUsernames(username);
+        if(!userList.userExist(username)){
+            userService.createUserFolders(username);
+            userList.addUser(username);
+        }
+        Set<String> set = userService.getUsernamesFromDirectory(username);
 
-        log.setLog("User logged in: " + username);
-        CS_Comm comm = new CS_Comm("login_ok", new LoginResponse());
+        log.setLog("User " + username + " logged in");
 
-        out.writeObject(comm);
+        CS_Comm c = new CS_Comm("loginRes", new LoginResponse());
+
+        outputStream.writeObject(c);
+
     }
 
     private void handleInboxAction(String username, List<Email> userInbox) throws IOException, ClassNotFoundException {
+        System.out.print("[SERVER] User connected: ");
+        for (String user : userList.getUsers()) {
+            System.out.print(user + ", ");
+        }
+        System.out.println();
         ArrayList<Email> loadedInbox = mailHandler.loadInBox(username);
         ArrayList<Email> newEmails = new ArrayList<>();
         for (Email email : loadedInbox) {
@@ -155,7 +144,7 @@ public class ServerHandler implements Runnable {
             }
         }
         CS_Comm response = new CS_Comm("inbox", newEmails);
-        out.writeObject(response);
+        outputStream.writeObject(response);
     }
 
     private void handleOutboxAction(String username, List<Email> userOutbox) throws IOException, ClassNotFoundException {
@@ -166,8 +155,41 @@ public class ServerHandler implements Runnable {
                 newEmails.add(email);
             }
         }
-        CS_Comm response = new CS_Comm("outbox", newEmails);
-        out.writeObject(response);
+        CS_Comm response = new CS_Comm("outbox",newEmails);
+        outputStream.writeObject(response);
+    }
+
+    private void handleSendAction(UserList userList, Email mail) throws IOException, ClassNotFoundException {
+        Set<String> receivers = new HashSet<>(mail.getReceivers());
+        for (String receiver : receivers) {
+            if (!userList.userExist(receiver)) {
+                System.out.println("[SERVER] User " + receiver + " does not exist");
+                CS_Comm response = new CS_Comm("send_not_ok", mail);
+                outputStream.writeObject(response);
+                return;
+            }
+            log.setLog(mail.getSender() + " sent an email to " + mail.getReceivers());
+            mail.setBin(true);
+
+            if (!mailHandler.save(mail)) {
+                System.out.println("[SERVER] Error while saving email");
+                CS_Comm response = new CS_Comm("send_not_ok", mail);
+                outputStream.writeObject(response);
+                return;
+            }
+
+            CS_Comm response = new CS_Comm("send_ok", mail);
+            outputStream.writeObject(response);
+        }
+    }
+
+    private synchronized void closeConnection() {
+        try {
+            log.setLog("closing connection");
+            incoming.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

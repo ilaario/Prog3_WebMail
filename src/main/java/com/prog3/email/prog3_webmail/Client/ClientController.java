@@ -55,8 +55,8 @@ public class ClientController implements Serializable {
             out.flush();
             in = new ObjectInputStream(socket.getInputStream());
             this.serverStatus = true;
-        } catch (Exception e) {
-            if (serverStatus)
+        } catch (IOException e) {
+            if(serverStatus)
                 showServerDownNotification();
             this.serverStatus = false;
         }
@@ -100,17 +100,19 @@ public class ClientController implements Serializable {
         popup.show();
     }
 
-    private static CS_Comm sendCMToServer(CS_Comm cm) {
+    private static CS_Comm sendCMToServer(CS_Comm c) {
         try {
-            if(out == null || in == null) return null;
-            System.out.println("[ClientController] Socket: " + socket);
-            System.out.println("[ClientController] sendCMToServer() cm: " + cm + " cm.getCommand(): \"" + cm.getCommand() + "\" cm.getData(): " + cm.getData());
+            if (out == null || in == null) {
+                return null;
+            }
+            out.writeObject(c);
 
-            out.writeObject(cm);
+            CS_Comm response = (CS_Comm) in.readObject();
 
-            CS_Comm cmFromServer = (CS_Comm) in.readObject();
-            return cmFromServer;
-        } catch (Exception e) {
+
+            return response;
+
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
         }
@@ -134,6 +136,7 @@ public class ClientController implements Serializable {
             ArrayList<Email> res = (ArrayList<Email>) body;
             if(!res.isEmpty()) {
                 ObservableList<Email> resList = FXCollections.observableList(res);
+                //notificationManager();
                 this.userModel.addToInbox(resList);
             }
             closeSocketConnection();
@@ -204,6 +207,7 @@ public class ClientController implements Serializable {
             }
             CS_Comm sendMail = new CS_Comm("send", mail);
             CS_Comm response = (CS_Comm) sendCMToServer(sendMail);
+            assert response != null;
             if (response.getCommand().equals("send_not_ok")) {
                 mailNotExist();
                 closeSocketConnection();

@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -111,7 +112,7 @@ public class LoginController {
     public void showSendMailDialog(Mail mail, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(ClientMain.class.getResource("SendMessages.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            Pane page = loader.load();
             Stage dialog = new Stage();
             dialog.setTitle(title);
             dialog.initModality(Modality.WINDOW_MODAL);

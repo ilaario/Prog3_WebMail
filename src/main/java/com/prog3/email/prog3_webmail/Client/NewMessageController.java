@@ -1,7 +1,5 @@
 package com.prog3.email.prog3_webmail.Client;
 
-import com.prog3.email.prog3_webmail.Client.Mail;
-import com.prog3.email.prog3_webmail.Client.User;
 import com.prog3.email.prog3_webmail.Utilities.Email;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,26 +10,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class NewMessageController {
-    @FXML
-    private Label to;
 
     @FXML
-    private Label subject;
+    private Label lblJavaMail;
 
     @FXML
-    private TextArea txtArea;
+    private TextArea messageBodyArea;
 
     @FXML
-    private TextField subField;
+    private TextField subjectField;
 
     @FXML
-    private TextField toField;
-
-    @FXML
-    private Label from;
-
-    @FXML
-    private Label mailFrom;
+    private TextField receiversField;
 
     @FXML
     private Button btnSend;
@@ -48,7 +38,6 @@ public class NewMessageController {
         this.cc = cc;
         this.user = user;
         this.mailContainerController = mailContainerController;
-        mailFrom.setText(user.getUsername());
     }
 
     @FXML
@@ -65,9 +54,9 @@ public class NewMessageController {
         if (mail == null) {
             this.mail = new Mail("", "", "", null, LocalDateTime.now(), "");
         }
-        toField.setText(this.mail.getReceiversString());
-        subField.setText(this.mail.getSubject());
-        txtArea.setText(this.mail.getMessage());
+        receiversField.setText(this.mail.getReceiversString());
+        subjectField.setText(this.mail.getSubject());
+        messageBodyArea.setText(this.mail.getMessage());
     }
 
     public boolean isOkClicked() {
@@ -86,19 +75,24 @@ public class NewMessageController {
 
         String sender = mail.getSender();
         System.out.println("[NMC] sender is: " + mail.getSender());
-        mail.setSender(toField.getText());
-        System.out.println("[NMC] receiver field is: " + toField.getText());
-        mail.setSubject(subField.getText());
-        mail.setMessage(txtArea.getText());
+
         ArrayList<String> receivers = new ArrayList<>();
+        receivers.addAll(Arrays.asList(Arrays.toString(receiversField.getText().split("; ")).replace("[", "").replace("]", "") + "@javamail.com"));
+
+        mail.setSender(sender);
+        mail.setReceivers(Arrays.toString(receiversField.getText().split("; ")).replace("[", "").replace("]", "") + "@javamail.com");
+        System.out.println("[NMC] receiver field is: " + receivers);
+        mail.setSubject(subjectField.getText());
+        mail.setMessage(messageBodyArea.getText());
 
         LocalDateTime now = LocalDateTime.now();
 
-        receivers.addAll(Arrays.asList(toField.getText().split("; ")));
-        Mail m = new Mail("", sender, subField.getText(), toField.getText(), now,
-                txtArea.getText());
+        Mail m = new Mail("", sender, subjectField.getText(),
+                (Arrays.toString(receiversField.getText().split("; ")).replace("[", "").replace("]", "") + "@javamail.com"),
+                now,
+                messageBodyArea.getText());
         System.out.println("[NewMessageController] handleOk() m: " + m);
-        Email e = new Email(sender, receivers, toField.getText(), txtArea.getText(), now);
+        Email e = new Email(sender, receivers, subjectField.getText(), messageBodyArea.getText(), now);
 
         System.out.println("[NewMessageController] handleOk() e: " + e);
 
@@ -119,27 +113,35 @@ public class NewMessageController {
     public void mailSendedFeedback() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Mail is going to be sent");
-        alert.setHeaderText("Mail will be sent to " + toField.getText());
-        alert.setContentText("Mail will be  sent to " + toField.getText());
+        alert.setHeaderText("Mail will be sent to " + receiversField.getText());
+        alert.setContentText("Mail will be  sent to " + receiversField.getText());
         dialog.close();
         alert.showAndWait();
     }
 
     public boolean isInputOk(Mail mail) {
         String error = "";
-        if (toField.getText() == null || toField.getText().length() == 0)
+        if (receiversField.getText() == null || receiversField.getText().length() == 0)
             error += "Missing receiver\n";
 
-        else if (!toField.getText().contains("@javamail.com"))
+        boolean isValidEmail = true;
+        for(String sender : mail.getReceivers()) {
+            if(!sender.contains("@javamail.com")) {
+                isValidEmail = false;
+                break;
+            }
+        }
+
+        if(!isValidEmail)
             error += "Invalid receiver email format\n";
 
         if (mail.getReceivers().size() == 0)
             error += "Wrong email format\n";
 
-        if (subField.getText() == null || subField.getText().length() == 0)
+        if (subjectField.getText() == null || subjectField.getText().length() == 0)
             error += "Missing subject\n";
 
-        if (txtArea.getText() == null || txtArea.getText().length() == 0)
+        if (messageBodyArea.getText() == null || messageBodyArea.getText().length() == 0)
             error += "Empty message body\n";
 
         if (error.length() == 0) {

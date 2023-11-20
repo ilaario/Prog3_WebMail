@@ -7,7 +7,7 @@ public class LogVerbose {
     public SimpleStringProperty log;
 
     public LogVerbose() {
-        log = new SimpleStringProperty("Server started \n");
+        log = new SimpleStringProperty("Start server mod \n");
     }
 
     public SimpleStringProperty getLog() {

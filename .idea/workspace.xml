@@ -4,22 +4,40 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15c324ec-f50d-4c84-9349-3fd9f60df90e" name="Changes" comment="Commit 7 - Controllo password corretto">
+    <list default="true" id="15c324ec-f50d-4c84-9349-3fd9f60df90e" name="Changes" comment="Commit intermedia - i File vengono cancellati, ma non vengono tolti dalla lista delle mail">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in/2023-11-16T14:56:43.041024.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in/2023-11-16T15:56:29.007989.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/out/2023-11-16T16:15:22.876222.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/out/2023-11-16T16:15:49.044055.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/in/2023-11-16T16:15:22.876222.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/in/2023-11-16T16:15:49.044055.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/2023-11-16T14:56:43.041024.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/2023-11-16T15:56:29.007989.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/CSS/Button.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/CSS/MailBox.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/Fonts/Roboto-Regular.ttf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/Mail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/Mail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/MailBoxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/MailBoxController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/NewMessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/NewMessageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/LogVerbose.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/LogVerbose.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/MailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/MailHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in/33fcaed6-f18e-4df2-9016-19a57f38d35d - 2023-09-29T17:48:20.828045.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in/90628a37-f808-4e39-b329-fb08071edfab - 2023-10-02T14:08:15.539197.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in/eb6b2911-a4b1-40d4-861d-df9e4e581766 - 2023-09-29T17:46:15.299078.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/0f51c3e8-c19f-4517-b4c0-1bd5edae3048 - 2023-09-29T17:41:46.889577.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/33fcaed6-f18e-4df2-9016-19a57f38d35d - 2023-09-29T17:48:20.828045.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/90628a37-f808-4e39-b329-fb08071edfab - 2023-10-02T14:08:15.539197.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/eb6b2911-a4b1-40d4-861d-df9e4e581766 - 2023-09-29T17:46:15.299078.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/CS_Comm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/CS_Comm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/Email.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/Email.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/LoginResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/FrontPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/FrontPage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/MailBox.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/MailBox.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/SendMessages.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/SendMessages.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +68,13 @@
       </UrlAndAccount>
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/20.0.1/javafx-base-20.0.1-mac-aarch64.jar!/javafx/beans/property/ObjectPropertyBase.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/20.0.1/javafx-controls-20.0.1-mac-aarch64.jar!/javafx/scene/control/ListView.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/20.0.1/javafx-graphics-20.0.1-mac-aarch64.jar!/com/sun/glass/ui/InvokeLaterDispatcher.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/20.0.1/javafx-graphics-20.0.1-mac-aarch64.jar!/javafx/application/Platform.class" root0="SKIP_INSPECTION" />
+    <setting file="jar://$USER_HOME$/Library/Java/JavaVirtualMachines/openjdk-20.0.2/Contents/Home/lib/src.zip!/java.base/java/util/AbstractList.java" root0="SKIP_INSPECTION" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -72,6 +97,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/ilaario/Desktop/Prog III/Prog3_WebMail/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -88,6 +114,9 @@
       <recent name="com.prog3.email.prog3_webmail.Client" />
       <recent name="com.prog3.email.prog3_webmail.Utilities" />
       <recent name="com.prog3.email.prog3_webmail.Server" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Client 1">
@@ -156,6 +185,16 @@
       <workItem from="1695816978218" duration="2833000" />
       <workItem from="1695819999388" duration="18647000" />
       <workItem from="1695921334749" duration="2997000" />
+      <workItem from="1697016376355" duration="598000" />
+      <workItem from="1697701840173" duration="43000" />
+      <workItem from="1697720606800" duration="17000" />
+      <workItem from="1698050428597" duration="8846000" />
+      <workItem from="1698309865637" duration="7861000" />
+      <workItem from="1698407948978" duration="2778000" />
+      <workItem from="1699525408568" duration="19000" />
+      <workItem from="1700039595132" duration="24911000" />
+      <workItem from="1700484798757" duration="326000" />
+      <workItem from="1700485199397" duration="319000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -197,7 +236,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696249325082</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Commit intermedia - i File vengono cancellati, ma non vengono tolti dalla lista delle mail">
+      <option name="closed" value="true" />
+      <created>1696321522290</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1696321522290</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,7 +268,8 @@
     <MESSAGE value="Commit 5 - Modificato .gitignore per evitare che ogni volta che si configura il SDK richieda di fare una Push" />
     <MESSAGE value="Commit 6 - Mail funzionanti, vengono mandate e ricevute, vengono mostrate in Inbox (rotta, duplica mail) e Outbox. Delete cancella contenuto Mail (rotto, dopo la spedizione perde Subject e Text, sostituiti da mail mittente)" />
     <MESSAGE value="Commit 7 - Controllo password corretto" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit 7 - Controllo password corretto" />
+    <MESSAGE value="Commit intermedia - i File vengono cancellati, ma non vengono tolti dalla lista delle mail" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit intermedia - i File vengono cancellati, ma non vengono tolti dalla lista delle mail" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
