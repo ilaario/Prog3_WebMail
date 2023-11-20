@@ -40,3 +40,4 @@ build/
 
 ### Email Files ###
 *.json
+/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/*
