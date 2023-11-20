@@ -4,40 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15c324ec-f50d-4c84-9349-3fd9f60df90e" name="Changes" comment="Commit intermedia - i File vengono cancellati, ma non vengono tolti dalla lista delle mail">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in/2023-11-16T14:56:43.041024.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in/2023-11-16T15:56:29.007989.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/out/2023-11-16T16:15:22.876222.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/out/2023-11-16T16:15:49.044055.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/in/2023-11-16T16:15:22.876222.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/in/2023-11-16T16:15:49.044055.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/2023-11-16T14:56:43.041024.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/dario@javamail.com/out/2023-11-16T15:56:29.007989.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/CSS/Button.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/CSS/MailBox.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/Fonts/Roboto-Regular.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="15c324ec-f50d-4c84-9349-3fd9f60df90e" name="Changes" comment="TODO:&#10;- Modificare creazione stringa da visualizzare nella ListView per la inbox&#10;- Aggiustare GUI (searchBox, deleteButton non visualizzabili, rimuovere orderByDate checkbox)&#10;- modificare visualizzazione from e to nella pagina di visualizzazione della mail (devono essere invertite quando si apre una mail dalla inbox e dalla outbox, ma rimangono uguali)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/Mail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/Mail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/MailBoxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/MailBoxController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/NewMessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/NewMessageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/LogVerbose.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/LogVerbose.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/MailHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/MailHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UserUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/CS_Comm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/CS_Comm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/Email.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/Email.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Utilities/LoginResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/FrontPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/FrontPage.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/MailBox.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/MailBox.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/SendMessages.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/prog3/email/prog3_webmail/Client/SendMessages.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +88,7 @@
       <recent name="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/alessandra@javamail.com/in" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Client 1">
+  <component name="RunManager" selected="Application.Client 2">
     <configuration name="2 Client" type="Application" factoryName="Application" singleton="false">
       <option name="MAIN_CLASS_NAME" value="com.prog3.email.prog3_webmail.Client.ClientMain" />
       <module name="Prog3_WebMail" />
@@ -194,7 +163,8 @@
       <workItem from="1699525408568" duration="19000" />
       <workItem from="1700039595132" duration="24911000" />
       <workItem from="1700484798757" duration="326000" />
-      <workItem from="1700485199397" duration="319000" />
+      <workItem from="1700485199397" duration="682000" />
+      <workItem from="1700486408598" duration="5020000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -244,7 +214,31 @@
       <option name="project" value="LOCAL" />
       <updated>1696321522290</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="modifica .gitignore">
+      <option name="closed" value="true" />
+      <created>1700485561518</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1700485561518</updated>
+    </task>
+    <task id="LOCAL-00008" summary="modifica .gitignore">
+      <option name="closed" value="true" />
+      <created>1700485645182</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1700485645182</updated>
+    </task>
+    <task id="LOCAL-00009" summary="TODO:&#10;- Modificare creazione stringa da visualizzare nella ListView per la inbox&#10;- Aggiustare GUI (searchBox, deleteButton non visualizzabili, rimuovere orderByDate checkbox)&#10;- modificare visualizzazione from e to nella pagina di visualizzazione della mail (devono essere invertite quando si apre una mail dalla inbox e dalla outbox, ma rimangono uguali)">
+      <option name="closed" value="true" />
+      <created>1700485872618</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1700485872618</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,7 +263,9 @@
     <MESSAGE value="Commit 6 - Mail funzionanti, vengono mandate e ricevute, vengono mostrate in Inbox (rotta, duplica mail) e Outbox. Delete cancella contenuto Mail (rotto, dopo la spedizione perde Subject e Text, sostituiti da mail mittente)" />
     <MESSAGE value="Commit 7 - Controllo password corretto" />
     <MESSAGE value="Commit intermedia - i File vengono cancellati, ma non vengono tolti dalla lista delle mail" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit intermedia - i File vengono cancellati, ma non vengono tolti dalla lista delle mail" />
+    <MESSAGE value="modifica .gitignore" />
+    <MESSAGE value="TODO:&#10;- Modificare creazione stringa da visualizzare nella ListView per la inbox&#10;- Aggiustare GUI (searchBox, deleteButton non visualizzabili, rimuovere orderByDate checkbox)&#10;- modificare visualizzazione from e to nella pagina di visualizzazione della mail (devono essere invertite quando si apre una mail dalla inbox e dalla outbox, ma rimangono uguali)" />
+    <option name="LAST_COMMIT_MESSAGE" value="TODO:&#10;- Modificare creazione stringa da visualizzare nella ListView per la inbox&#10;- Aggiustare GUI (searchBox, deleteButton non visualizzabili, rimuovere orderByDate checkbox)&#10;- modificare visualizzazione from e to nella pagina di visualizzazione della mail (devono essere invertite quando si apre una mail dalla inbox e dalla outbox, ma rimangono uguali)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

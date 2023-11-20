@@ -2,6 +2,7 @@ package com.prog3.email.prog3_webmail.Client;
 
 import com.prog3.email.prog3_webmail.Utilities.Email;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -16,11 +17,17 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class MailBoxController {
@@ -166,7 +173,10 @@ public class MailBoxController {
 
     public void updateOutboxEmails(Email newEmail) {
         this.updateOutbox();
+        sortListViewByDate(outTab);
         this.updateInbox();
+        sortListViewByDate(inTab);
+
     }
 
     private void updateInboxEmails() {
@@ -181,14 +191,15 @@ public class MailBoxController {
                     Platform.runLater(() -> {
                         if (inTab.getItems().isEmpty()) {
                             inTab.getItems().add(writeInMail(m));
+                            sortListViewByDate(inTab);
+
                             return;
                         }
                         synchronized (lock){
-                            for (String mail : outTab.getItems()) {
-                                if (mail.contains(m.getDate().toString()))
-                                    return;
-                                inTab.getItems().add(writeInMail(m));
-                            }
+                            List<String> mailList = Collections.synchronizedList(inTab.getItems());
+                            Iterator<String> iterator = mailList.iterator();
+                            inTab.getItems().add(writeInMail(m));
+                            sortListViewByDate(inTab);
                         }
                     });
                 }
@@ -207,19 +218,57 @@ public class MailBoxController {
                 synchronized (lock) {
                     Platform.runLater(() -> {
                         if (outTab.getItems().isEmpty()) {
-                            outTab.getItems().add(writeOutMail(m));
+                            outTab.getItems().add(outTab.getItems().size(), writeOutMail(m));
+                            sortListViewByDate(outTab);
                             return;
                         }
 
                         synchronized (lock){
                             List<String> mailList = Collections.synchronizedList(outTab.getItems());
                             Iterator<String> iterator = mailList.iterator();
-                            outTab.getItems().add(writeOutMail(m));
+                            outTab.getItems().add(outTab.getItems().size(), writeOutMail(m));
+                            sortListViewByDate(outTab);
                         }
                     });
                 }
             });
         });
+    }
+
+    public static void sortListViewByDate(ListView<String> listView) {
+        ObservableList<String> items = listView.getItems();
+
+        System.out.println("[MailBoxController] sortListViewByDate: " + items);
+
+        // Creazione di un comparatore basato sulle date
+        Comparator<String> dateComparator = Comparator.comparing(MailBoxController::extractDateFromString);
+
+        // Ordina la lista usando il comparatore
+        items.sort(dateComparator);
+
+        // Aggiorna la ListView
+        listView.setItems(items);
+    }
+
+    private static Date extractDateFromString(String input) {
+        // Cerca la data utilizzando un'espressione regolare
+        Pattern pattern = Pattern.compile("\\b\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{6}\\b");
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.find()) {
+            // Se trova la corrispondenza, converte la stringa della data in un oggetto Date
+            String dateString = matcher.group();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
+            try {
+                return dateFormat.parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace(); // Gestire l'eccezione in base alle tue esigenze
+                return null;
+            }
+        } else {
+            // Se non trova una corrispondenza, gestisce la situazione di default
+            return null;
+        }
     }
 
     @NotNull
@@ -391,14 +440,17 @@ public class MailBoxController {
             destinatario = destinatarioObject.toString();
         }
 
-        String regex = "[\\[\\]\"']"; // Rimuove [ ] " '
+        String regex = "[\\[\\]\"\n']"; // Rimuove [ ] " '
         destinatario = destinatario.replaceAll(regex, "");
+        oggetto = oggetto.replaceAll(regex, "");
+        timestamp = timestamp.replaceAll(regex, "");
 
         // Stampi i campi desiderati
         StringBuilder sb = new StringBuilder();
         sb.append(destinatario).append("\n");
         sb.append(oggetto).append("\n");
         sb.append(timestamp).append("\n");
+
         System.out.println("[MailBoxController] writeOutMail: " + sb.toString());
         return sb.toString();
     }
@@ -460,47 +512,6 @@ public class MailBoxController {
     @NotNull
     @Contract("_ -> new")
     private Mail StringToMail(@NotNull String mailString) throws IOException {
-        /* String[] lines = mailString.split("\n");
-
-        // Assicurati che ci siano almeno tre righe
-        if (lines.length < 3) {
-            throw new IllegalArgumentException("La stringa di input deve contenere almeno tre righe.");
-        }
-
-        String mittente = lines[0];
-        String oggetto = lines[1];
-        String timestampString = lines[2];
-
-
-        System.out.println("[MailBoxController] StringToMail: " + timestampString);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
-        LocalDateTime timestamp = LocalDateTime.parse(timestampString, formatter);
-
-        File file;
-        BufferedReader in;
-        try{
-            file = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/" + this.username + "/in/" + timestampString + ".json");
-            in = new BufferedReader(new FileReader(file));
-        } catch(FileNotFoundException e) {
-            file = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/" + this.username + "/out/" + timestampString + ".json");
-            in = new BufferedReader(new FileReader(file));
-        }
-        String line = in.readLine();
-        String JSON_string = "";
-        while(line != null)
-        {
-            System.out.println(line);
-            JSON_string += line;
-            line = in.readLine();
-        }
-        in.close();
-
-        // Crea un oggetto JSON
-        JSONObject jsonObject = new JSONObject(JSON_string);
-        String testo = jsonObject.getString("testo");
-
-        Mail mail = new Mail("", mittente, oggetto, username, timestamp, testo);
-        return mail;*/
         String[] lines = mailString.split("\\n");
 
         List<String> interessanti = Arrays.stream(lines)
