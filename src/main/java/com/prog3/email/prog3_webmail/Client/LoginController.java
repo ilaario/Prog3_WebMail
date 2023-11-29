@@ -150,8 +150,9 @@ public class LoginController {
     private void openMailBox() {
         try {
             FXMLLoader loaderContainer = new FXMLLoader(ClientMain.class.getResource("MailBox.fxml"));
-            root.setCenter(loaderContainer.load());
 
+            root.setCenter(loaderContainer.load());
+            topStage.setTitle(this.userEmail);
             mailContainerController = loaderContainer.getController();
 
             mailContainerController.setClientMain(this, this.user, this.cc);

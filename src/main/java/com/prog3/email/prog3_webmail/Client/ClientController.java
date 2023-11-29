@@ -8,14 +8,20 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class ClientController implements Serializable {
@@ -106,12 +112,8 @@ public class ClientController implements Serializable {
                 return null;
             }
             out.writeObject(c);
-
             CS_Comm response = (CS_Comm) in.readObject();
-
-
             return response;
-
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
@@ -146,6 +148,179 @@ public class ClientController implements Serializable {
         }
     }
 
+    public synchronized String requestInboxMailString(String mailTS){
+        try {
+            if (!connectToSocket()) {
+                showServerDownNotification();
+                return null;
+            }
+            CS_Comm request = new CS_Comm("inboxMailFile", new Pair<>(username,mailTS));
+            CS_Comm response = sendCMToServer(request);
+            if (response == null || !response.getCommand().equals("inboxMailFile_ok")) {
+                System.out.println("[ClientController] response = null \\|\\| !response.getCommand().equals(\"inboxMailFile_ok\"");
+                return null;
+            }
+            Object body = response.getData();
+            if (!(body instanceof String res)) {
+                System.out.println("[ClientController] body = null \\|\\| !(body instanceof JSONObject res)");
+                return null;
+            }
+            String[] mail = parseMailFile(res);
+            for (int i = 0; i < mail.length; i++) {
+                System.out.println("[ClientController] mail[" + i + "] = " + mail[i]);
+            }
+            ArrayList<String> receivers = new ArrayList<>();
+            receivers.addAll(Arrays.asList(mail[1].split(",")));
+            LocalDateTime date = LocalDateTime.parse(mail[4]);
+            Email e = new Email(mail[0], receivers, mail[2], mail[3], date);
+            this.userModel.addToInbox(FXCollections.observableList(new ArrayList<>(Arrays.asList(e))));
+            closeSocketConnection();
+            StringBuilder inboxResBuilder = new StringBuilder();
+            inboxResBuilder.append(mail[0]).append("\n");
+            inboxResBuilder.append(mail[2]).append("\n");
+            inboxResBuilder.append(mail[4]).append("\n");
+            return inboxResBuilder.toString();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public synchronized String requestInboxTextMailString(String mailTS){
+        try {
+            if (!connectToSocket()) {
+                showServerDownNotification();
+                return null;
+            }
+            CS_Comm request = new CS_Comm("inboxMailFile", new Pair<>(username,mailTS));
+            CS_Comm response = sendCMToServer(request);
+            if (response == null || response.getCommand().equals("inboxMailNotFile_ok")) {
+                System.out.println("[ClientController] response = null \\|\\| !response.getCommand().equals(\"inboxMailNotFile_ok\"");
+                closeSocketConnection();
+                throw new RuntimeException("Mail not exist");
+            }
+            Object body = response.getData();
+            if (!(body instanceof String res)) {
+                System.out.println("[ClientController] body = null \\|\\| !(body instanceof JSONObject res)");
+                return null;
+            }
+            String[] mail = parseMailFile(res);
+            for (int i = 0; i < mail.length; i++) {
+                System.out.println("[ClientController] mail[" + i + "] = " + mail[i]);
+            }
+            closeSocketConnection();
+            return mail[3];
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public synchronized String requestOutboxTextMailString(String mailTS){
+        try {
+            if (!connectToSocket()) {
+                showServerDownNotification();
+                return null;
+            }
+            CS_Comm request = new CS_Comm("outboxMailFile", new Pair<>(username,mailTS));
+            CS_Comm response = sendCMToServer(request);
+            if (response == null || response.getCommand().equals("outboxMailNotFile_ok")) {
+                System.out.println("[ClientController] response = null \\|\\| !response.getCommand().equals(\"outboxMailNotFile_ok\"");
+                closeSocketConnection();
+                throw new RuntimeException("Mail not exist");
+            }
+            Object body = response.getData();
+            if (!(body instanceof String res)) {
+                System.out.println("[ClientController] body = null \\|\\| !(body instanceof JSONObject res)");
+                return null;
+            }
+            String[] mail = parseMailFile(res);
+            for (int i = 0; i < mail.length; i++) {
+                System.out.println("[ClientController] mail[" + i + "] = " + mail[i]);
+            }
+            closeSocketConnection();
+            return mail[3];
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public synchronized String requestOutboxMailString(String mailTS){
+        try {
+            if (!connectToSocket()) {
+                showServerDownNotification();
+                return null;
+            }
+            CS_Comm request = new CS_Comm("outboxMailFile", new Pair<>(username,mailTS));
+            CS_Comm response = sendCMToServer(request);
+            if (response == null || !response.getCommand().equals("outboxMailFile_ok")) {
+                System.out.println("[ClientController] response = null \\|\\| !response.getCommand().equals(\"outboxMailNotFile_ok\"");
+                return null;
+            }
+            Object body = response.getData();
+            if (!(body instanceof String res)) {
+                System.out.println("[ClientController] body = null \\|\\| !(body instanceof JSONObject res)");
+                return null;
+            }
+            String[] mail = parseMailFile(res);
+            for (int i = 0; i < mail.length; i++) {
+                System.out.println("[ClientController] mail[" + i + "] = " + mail[i]);
+            }
+            ArrayList<String> receivers = new ArrayList<>();
+            receivers.addAll(Arrays.asList(mail[1].split(",")));
+            LocalDateTime date = LocalDateTime.parse(mail[4]);
+            Email e = new Email(mail[0], receivers, mail[2], mail[3], date);
+            this.userModel.addToInbox(FXCollections.observableList(new ArrayList<>(Arrays.asList(e))));
+            closeSocketConnection();
+            StringBuilder outboxResBuilder = new StringBuilder();
+            outboxResBuilder.append(mail[0]).append("\n");
+            outboxResBuilder.append(mail[2]).append("\n");
+            outboxResBuilder.append(mail[4]).append("\n");
+            return outboxResBuilder.toString();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @NotNull
+    private String[] parseMailFile(String jsonString) {
+        try {
+            System.out.println("[ClientController] jsonString = " + jsonString);
+            JSONObject jsonObject = new JSONObject(jsonString);
+            // Estrai i campi desiderati e restituisci il risultato
+            return extractMailFields(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    @NotNull
+    private String[] extractMailFields(@NotNull JSONObject jsonObject) {
+        // Estrai i campi desiderati
+        String mittente = jsonObject.getString("mittente");
+        String oggetto = jsonObject.getString("oggetto");
+        String testo = jsonObject.getString("testo");
+        String timestamp = jsonObject.getString("timestamp");
+
+        Object destinatarioObject = jsonObject.get("destinatario");
+        String destinatario;
+
+        if (destinatarioObject instanceof JSONArray) {
+            JSONArray destinatarioArray = (JSONArray) destinatarioObject;
+            destinatario = destinatarioArray.toString();
+        } else {
+            destinatario = destinatarioObject.toString();
+        }
+
+        String[] mail = new String[5];
+        String regex = "[\\[\\]\"\n']"; // Rimuove [ ] " '
+        mail[0] = mittente.replaceAll(regex, "");
+        mail[1] = destinatario.replaceAll(regex, "");
+        mail[2] = oggetto.replaceAll("\n", "");
+        mail[3] = testo;
+        mail[4] = timestamp.replaceAll(regex, "");
+        return mail;
+    }
+
     public int requestOutbox() {
         try {
             if (!connectToSocket()) {
@@ -155,6 +330,7 @@ public class ClientController implements Serializable {
             CS_Comm request = new CS_Comm("outbox", new Pair<>(username,(ArrayList)userModel.getOutbox()));
             CS_Comm response = sendCMToServer(request);
             if (response == null) {
+                System.out.println("[ClientController] response = null \\|\\| !response.getCommand().equals(\"outboxMailFile_ok\"");
                 return -1;
             }
             Object body = response.getData();

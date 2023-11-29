@@ -17,12 +17,12 @@ public class ClientMain extends Application{
         try {
             stage.setTitle("Client mail");
             FXMLLoader loaderLogin = new FXMLLoader(getClass().getResource("FrontPage.fxml"));
-            Scene sceneLogin = new Scene(loaderLogin.load(), 600, 410);
+            Scene sceneLogin = new Scene(loaderLogin.load(), 650, 460);
 
             stage.setTitle("Login");
             stage.setScene(sceneLogin);
 
-            stage.setResizable(false);
+            // stage.setResizable(false);
 
             stage.setOnCloseRequest(windowEvent -> Platform.exit());
             sceneLogin.getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, (WindowEvent e) -> System.exit(1));

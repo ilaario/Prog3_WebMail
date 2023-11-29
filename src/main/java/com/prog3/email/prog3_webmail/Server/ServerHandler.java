@@ -10,9 +10,13 @@ import javafx.util.Pair;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.*;
 
 public class ServerHandler implements Runnable {
@@ -80,6 +84,8 @@ public class ServerHandler implements Runnable {
                         case "send" -> handleSendAction(userList, (Email) c.getData());
                         case "delete" -> handleDeleteAction((String) ((Pair) c.getData()).getKey(), (Email) ((Pair) c.getData()).getValue());
                         case "outbox" -> handleOutboxAction((String)((Pair) c.getData()).getKey(), (List<Email>) ((Pair) c.getData()).getValue());
+                        case "inboxMailFile" -> handleInboxMailFileActions((String)((Pair) c.getData()).getKey(), (String) ((Pair) c.getData()).getValue());
+                        case "outboxMailFile" -> handleOutboxMailFileActions((String)((Pair) c.getData()).getKey(), (String) ((Pair) c.getData()).getValue());
                         default -> log.setLog("Unrecognized action");
                     }
 
@@ -97,6 +103,70 @@ public class ServerHandler implements Runnable {
             e.printStackTrace();
         }
     }
+
+    private void handleInboxMailFileActions(String user, String timestamp) throws IOException {
+        try {
+            File inboxFolder = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/" + user + "/in/");
+            File inboxFile = new File(inboxFolder, timestamp + ".json");
+            if (!inboxFile.exists()) {
+                CS_Comm response = new CS_Comm("inboxMailNotFile_ok", null);
+                outputStream.writeObject(response);
+                outputStream.flush();
+                return;
+            }
+            String inboxFileContent = readMailFile(inboxFile.toPath());
+            CS_Comm response = new CS_Comm("inboxMailFile_ok", inboxFileContent);
+            outputStream.writeObject(response);
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handleOutboxMailFileActions(String user, String timestamp) {
+        try {
+            File outboxFolder = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/" + user + "/out/");
+            File outboxFile = new File(outboxFolder, timestamp + ".json");
+            if (!outboxFile.exists()) {
+                CS_Comm response = new CS_Comm("outboxMailNotFile_ok", null);
+                outputStream.writeObject(response);
+                outputStream.flush();
+                return;
+            }
+            String outboxFileContent = readMailFile(outboxFile.toPath());
+            CS_Comm response = new CS_Comm("outboxMailFile_ok", outboxFileContent);
+            outputStream.writeObject(response);
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @NotNull
+    private String readMailFile(Path filePath) {
+        try {
+            try{
+                BufferedReader in = Files.newBufferedReader(filePath);
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = in.readLine()) != null) {
+                    sb.append(line);
+                }
+                System.out.println(sb.toString());
+                return sb.toString();
+            } catch (NoSuchFileException e) {
+                CS_Comm response = new CS_Comm("inboxMailNotFile_ok", null);
+                outputStream.writeObject(response);
+                outputStream.flush();
+                throw new RuntimeException(e);
+            }
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     private void handleDeleteAction(String user, Email body) {
         try {

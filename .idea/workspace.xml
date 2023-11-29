@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15c324ec-f50d-4c84-9349-3fd9f60df90e" name="Changes" comment="TODO:&#10;- Modificare creazione stringa da visualizzare nella ListView per la inbox&#10;- Aggiustare GUI (searchBox, deleteButton non visualizzabili, rimuovere orderByDate checkbox)&#10;- modificare visualizzazione from e to nella pagina di visualizzazione della mail (devono essere invertite quando si apre una mail dalla inbox e dalla outbox, ma rimangono uguali)">
+    <list default="true" id="15c324ec-f50d-4c84-9349-3fd9f60df90e" name="Changes" comment="TODO:&#10;- Modificare creazione stringa da visualizzare nella ListView per la inbox (FATTO)&#10;- Aggiustare GUI (searchBox, deleteButton non visualizzabili, rimuovere orderByDate checkbox)&#10;- modificare visualizzazione from e to nella pagina di visualizzazione della mail (devono essere invertite quando si apre una mail dalla inbox e dalla outbox, ma rimangono uguali)&#10;- Aggiunto sort per le mail che ordina le mail dalla più recente alla più vecchia (DA FIXARE)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/ClientMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/MailBoxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Client/MailBoxController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/prog3/email/prog3_webmail/Server/ServerHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +168,13 @@
       <workItem from="1700039595132" duration="24911000" />
       <workItem from="1700484798757" duration="326000" />
       <workItem from="1700485199397" duration="682000" />
-      <workItem from="1700486408598" duration="5020000" />
+      <workItem from="1700486408598" duration="8345000" />
+      <workItem from="1700649163227" duration="326000" />
+      <workItem from="1700663574837" duration="62000" />
+      <workItem from="1700675767485" duration="1777000" />
+      <workItem from="1701013979463" duration="11227000" />
+      <workItem from="1701100390278" duration="6681000" />
+      <workItem from="1701248169456" duration="5690000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <option name="closed" value="true" />
@@ -238,7 +248,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700485872618</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="TODO:&#10;- Modificare creazione stringa da visualizzare nella ListView per la inbox (FATTO)&#10;- Aggiustare GUI (searchBox, deleteButton non visualizzabili, rimuovere orderByDate checkbox)&#10;- modificare visualizzazione from e to nella pagina di visualizzazione della mail (devono essere invertite quando si apre una mail dalla inbox e dalla outbox, ma rimangono uguali)&#10;- Aggiunto sort per le mail che ordina le mail dalla più recente alla più vecchia (DA FIXARE)">
+      <option name="closed" value="true" />
+      <created>1700501171771</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1700501171771</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,7 +283,8 @@
     <MESSAGE value="Commit intermedia - i File vengono cancellati, ma non vengono tolti dalla lista delle mail" />
     <MESSAGE value="modifica .gitignore" />
     <MESSAGE value="TODO:&#10;- Modificare creazione stringa da visualizzare nella ListView per la inbox&#10;- Aggiustare GUI (searchBox, deleteButton non visualizzabili, rimuovere orderByDate checkbox)&#10;- modificare visualizzazione from e to nella pagina di visualizzazione della mail (devono essere invertite quando si apre una mail dalla inbox e dalla outbox, ma rimangono uguali)" />
-    <option name="LAST_COMMIT_MESSAGE" value="TODO:&#10;- Modificare creazione stringa da visualizzare nella ListView per la inbox&#10;- Aggiustare GUI (searchBox, deleteButton non visualizzabili, rimuovere orderByDate checkbox)&#10;- modificare visualizzazione from e to nella pagina di visualizzazione della mail (devono essere invertite quando si apre una mail dalla inbox e dalla outbox, ma rimangono uguali)" />
+    <MESSAGE value="TODO:&#10;- Modificare creazione stringa da visualizzare nella ListView per la inbox (FATTO)&#10;- Aggiustare GUI (searchBox, deleteButton non visualizzabili, rimuovere orderByDate checkbox)&#10;- modificare visualizzazione from e to nella pagina di visualizzazione della mail (devono essere invertite quando si apre una mail dalla inbox e dalla outbox, ma rimangono uguali)&#10;- Aggiunto sort per le mail che ordina le mail dalla più recente alla più vecchia (DA FIXARE)" />
+    <option name="LAST_COMMIT_MESSAGE" value="TODO:&#10;- Modificare creazione stringa da visualizzare nella ListView per la inbox (FATTO)&#10;- Aggiustare GUI (searchBox, deleteButton non visualizzabili, rimuovere orderByDate checkbox)&#10;- modificare visualizzazione from e to nella pagina di visualizzazione della mail (devono essere invertite quando si apre una mail dalla inbox e dalla outbox, ma rimangono uguali)&#10;- Aggiunto sort per le mail che ordina le mail dalla più recente alla più vecchia (DA FIXARE)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

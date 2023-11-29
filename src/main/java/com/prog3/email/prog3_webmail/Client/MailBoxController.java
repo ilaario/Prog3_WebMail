@@ -190,7 +190,7 @@ public class MailBoxController {
                 synchronized (lock) {
                     Platform.runLater(() -> {
                         if (inTab.getItems().isEmpty()) {
-                            inTab.getItems().add(writeInMail(m));
+                            inTab.getItems().add(writeInMail(m.getDate().toString()));
                             sortListViewByDate(inTab);
 
                             return;
@@ -198,7 +198,7 @@ public class MailBoxController {
                         synchronized (lock){
                             List<String> mailList = Collections.synchronizedList(inTab.getItems());
                             Iterator<String> iterator = mailList.iterator();
-                            inTab.getItems().add(writeInMail(m));
+                            inTab.getItems().add(writeInMail(m.getDate().toString()));
                             sortListViewByDate(inTab);
                         }
                     });
@@ -218,7 +218,7 @@ public class MailBoxController {
                 synchronized (lock) {
                     Platform.runLater(() -> {
                         if (outTab.getItems().isEmpty()) {
-                            outTab.getItems().add(outTab.getItems().size(), writeOutMail(m));
+                            outTab.getItems().add(outTab.getItems().size(), writeOutMail(m.getDate().toString()));
                             sortListViewByDate(outTab);
                             return;
                         }
@@ -226,7 +226,7 @@ public class MailBoxController {
                         synchronized (lock){
                             List<String> mailList = Collections.synchronizedList(outTab.getItems());
                             Iterator<String> iterator = mailList.iterator();
-                            outTab.getItems().add(outTab.getItems().size(), writeOutMail(m));
+                            outTab.getItems().add(outTab.getItems().size(), writeOutMail(m.getDate().toString()));
                             sortListViewByDate(outTab);
                         }
                     });
@@ -272,7 +272,7 @@ public class MailBoxController {
     }
 
     @NotNull
-    private synchronized String writeOutMail(@NotNull Mail m) {
+    private synchronized String writeOutMail(@NotNull String m) {
         /* File file = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/" + this.username + "/out/" + m.getDate() + ".json");
         System.out.println("[MailBoxController] writeOutMail: " + file);
         try {
@@ -315,12 +315,12 @@ public class MailBoxController {
             throw new RuntimeException(e);
         }
         return null; */
-        Path filePath = userFilesPath.resolve(username).resolve("out").resolve(m.getDate() + ".json");
-        return readAndParseMailFile(filePath);
+        return this.cc.requestOutboxMailString(m);
+
     }
 
     @NotNull
-    private synchronized String writeInMail(@NotNull Mail m) {
+    private synchronized String writeInMail(@NotNull String m) {
         /* File file = new File("src/main/java/com/prog3/email/prog3_webmail/Server/UsersFiles/" + this.username + "/in/" + m.getDate() + ".json");
         System.out.println("[MailBoxController] writeInMail: " + file);
         try {
@@ -359,8 +359,7 @@ public class MailBoxController {
             throw new RuntimeException(e);
         }
         return null; */
-        Path filePath = userFilesPath.resolve(username).resolve("in").resolve(m.getDate() + ".json");
-        return readAndParseMailFile(filePath);
+        return this.cc.requestInboxMailString(m);
     }
 
     @NotNull
@@ -484,7 +483,7 @@ public class MailBoxController {
         inTab.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 try {
-                    showMailDetails(newSelection);
+                    showInboxMailDetails(newSelection);
                     outTab.getSelectionModel().clearSelection(); // Clear selection in outTab
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -496,7 +495,7 @@ public class MailBoxController {
         outTab.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 try {
-                    showMailDetails(newSelection);
+                    showOutboxMailDetails(newSelection);
                     inTab.getSelectionModel().clearSelection(); // Clear selection in inTab
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -536,22 +535,78 @@ public class MailBoxController {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
             LocalDateTime timestamp = LocalDateTime.parse(timestampString, formatter);
 
-            Path inFilePath = userFilesPath.resolve(username).resolve("in").resolve(timestampString + ".json");
-            Path outFilePath = userFilesPath.resolve(username).resolve("out").resolve(timestampString + ".json");
+            return new Mail("", mittente, oggetto, username, timestamp, "");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 
-            JSONObject jsonObject;
-            if (Files.exists(inFilePath)) {
-                jsonObject = readJsonFromFile(inFilePath);
-            } else if (Files.exists(outFilePath)) {
-                jsonObject = readJsonFromFile(outFilePath);
-            } else {
-                throw new FileNotFoundException("File non trovato per il timestamp: " + timestampString);
-            }
+    @NotNull
+    @Contract("_ -> new")
+    private Mail InboxStringToMail(@NotNull String mailString) throws IOException {
+        String[] lines = mailString.split("\\n");
 
-            String testo = jsonObject.getString("testo");
+        List<String> interessanti = Arrays.stream(lines)
+                .map(String::strip)
+                .filter(s -> !s.isEmpty())
+                .toList();
 
-            return new Mail("", mittente, oggetto, username, timestamp, testo);
-        } catch (IOException | JSONException e) {
+        if (interessanti.size() < 3) {
+            throw new IllegalArgumentException("La stringa di input deve contenere almeno tre righe interessanti.");
+        }
+
+        String mittente = correggiFormatoRiga(interessanti.get(0));
+        String oggetto = correggiFormatoRiga(interessanti.get(1));
+        String timestampString = interessanti.get(2);
+
+        // Aggiungi stampe di debug per identificare il problema
+        System.out.println("Mittente: " + mittente);
+        System.out.println("Oggetto: " + oggetto);
+        System.out.println("Timestamp: " + timestampString);
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
+            LocalDateTime timestamp = LocalDateTime.parse(timestampString, formatter);
+
+            String stringMail = this.cc.requestInboxTextMailString(timestamp.toString());
+            return new Mail("", mittente, oggetto, username, timestamp, stringMail);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    @NotNull
+    @Contract("_ -> new")
+    private Mail OutboxStringToMail(@NotNull String mailString) throws IOException {
+        String[] lines = mailString.split("\\n");
+
+        List<String> interessanti = Arrays.stream(lines)
+                .map(String::strip)
+                .filter(s -> !s.isEmpty())
+                .toList();
+
+        if (interessanti.size() < 3) {
+            throw new IllegalArgumentException("La stringa di input deve contenere almeno tre righe interessanti.");
+        }
+
+        String mittente = correggiFormatoRiga(interessanti.get(0));
+        String oggetto = correggiFormatoRiga(interessanti.get(1));
+        String timestampString = interessanti.get(2);
+
+        // Aggiungi stampe di debug per identificare il problema
+        System.out.println("Mittente: " + mittente);
+        System.out.println("Oggetto: " + oggetto);
+        System.out.println("Timestamp: " + timestampString);
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS");
+            LocalDateTime timestamp = LocalDateTime.parse(timestampString, formatter);
+
+            String stringMail = this.cc.requestOutboxTextMailString(timestamp.toString());
+            return new Mail("", mittente, oggetto, username, timestamp, stringMail);
+        } catch (JSONException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
@@ -581,6 +636,56 @@ public class MailBoxController {
             }
             return new JSONObject(sb.toString());
         }
+    }
+
+    private void showInboxMailDetails(String mailString) throws IOException{
+        txtArea.setVisible(true);
+        lblSubject.setVisible(true);
+        lblFrom.setVisible(true);
+        lblTo.setVisible(true);
+        lblDate.setVisible(true);
+        lblSubjectVuota.setVisible(true);
+        lblFromVuota.setVisible(true);
+        lblToVuota.setVisible(true);
+        lblDateVuota.setVisible(true);
+        imgInbox.setVisible(false);
+
+        Mail mail = InboxStringToMail(mailString);
+
+        lblSubject.setText(correggiFormatoRiga(mail.getSubject()));
+        lblFromVuota.setText(correggiFormatoRiga(mail.getSender()));
+        lblDateVuota.setText(correggiFormatoRiga(mail.getFormattedDate()));
+        lblToVuota.setText("" + mail.getReceivers());
+        txtArea.setText(mail.getMessage());
+        btnReply.setVisible(true);
+        btnReply.setDisable(false);
+        btnDelete.setVisible(true);
+        btnDelete.setDisable(false);
+    }
+
+    private void showOutboxMailDetails(String mailString) throws IOException{
+        txtArea.setVisible(true);
+        lblSubject.setVisible(true);
+        lblFrom.setVisible(true);
+        lblTo.setVisible(true);
+        lblDate.setVisible(true);
+        lblSubjectVuota.setVisible(true);
+        lblFromVuota.setVisible(true);
+        lblToVuota.setVisible(true);
+        lblDateVuota.setVisible(true);
+        imgInbox.setVisible(false);
+
+        Mail mail = OutboxStringToMail(mailString);
+
+        lblSubject.setText(correggiFormatoRiga(mail.getSubject()));
+        lblFromVuota.setText(correggiFormatoRiga(mail.getSender()));
+        lblDateVuota.setText(correggiFormatoRiga(mail.getFormattedDate()));
+        lblToVuota.setText("" + mail.getReceivers());
+        txtArea.setText(mail.getMessage());
+        btnReply.setVisible(true);
+        btnReply.setDisable(false);
+        btnDelete.setVisible(true);
+        btnDelete.setDisable(false);
     }
 
     private void showMailDetails(String mailString) throws IOException {
@@ -624,12 +729,8 @@ public class MailBoxController {
     public void delete() throws IOException {
         Mail mail = StringToMail(selectedMail);
         boolean success = cc.deleteMail(mail);
-        showMailDetails(writeMail(new Mail("",
-                "",
-                "",
-                "",
-                LocalDateTime.now(),
-                "")));
+        hideMailDetails();
+        imgInbox.setVisible(true);
         if(success) {
             try {
                 ArrayList<String> receivers = new ArrayList<>();
